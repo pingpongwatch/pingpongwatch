@@ -1,0 +1,3657 @@
+
+<!doctype html>
+<html class="no-js" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PingPong API docs</title>
+    <link rel="stylesheet" href="stylesheets/foundation.min.css" />
+    <link rel="stylesheet" href="stylesheets/spectacle.min.css" />
+    <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+    <script src="javascripts/spectacle.min.js"></script>
+    <link rel="icon" type="image/svg+xml" href="https://cdn.pingpong.one/static/images/favicons/main.svg">
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-N6LS9VB');</script>
+  </head>
+  <body id="spectacle">
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-N6LS9VB" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="page" class="drawer-layout drawer-slide-right-large">
+      <div id="sidebar">
+        <button class="close-button" aria-label="Close menu" type="button" data-drawer-close>
+          <span aria-hidden="true">×</span>
+        </button>
+        <div id="logo">
+          <img src="images/logo.svg" title="PingPong API docs" /> </div>
+        <nav id="nav" role="navigation">
+          <h5>Topics</h5>
+          <a href="#introduction">Introduction</a>
+          <a href="#authentication">Authentication</a>
+          <h5>Operations</h5>
+          <section>
+            <a href="#tag-Status">Status</a>
+            <ul>
+              <li>
+                <a href="#operation--status-get"> Get system status </a>
+              </li>
+            </ul>
+          </section>
+          <section>
+            <a href="#tag-Live">Live</a>
+            <ul>
+              <li>
+                <a href="#operation--live-get"> Get live events </a>
+              </li>
+            </ul>
+          </section>
+          <section>
+            <a href="#tag-Component">Component</a>
+            <ul>
+              <li>
+                <a href="#operation--components-get"> List components </a>
+              </li>
+              <li>
+                <a href="#operation--components--id--get"> Get component </a>
+              </li>
+            </ul>
+          </section>
+          <section>
+            <a href="#tag-Incident">Incident</a>
+            <ul>
+              <li>
+                <a href="#operation--incidents-get"> List incidents </a>
+              </li>
+              <li>
+                <a href="#operation--incidents-live-get"> Live incidents </a>
+              </li>
+              <li>
+                <a href="#operation--incidents--id--get"> Get incident </a>
+              </li>
+            </ul>
+          </section>
+          <section>
+            <a href="#tag-Maintenance">Maintenance</a>
+            <ul>
+              <li>
+                <a href="#operation--maintenances-get"> List maintenance </a>
+              </li>
+              <li>
+                <a href="#operation--maintenances--id--get"> Get maintenance </a>
+              </li>
+            </ul>
+          </section>
+          <section>
+            <a href="#tag-Metrics">Metrics</a>
+            <ul>
+              <li>
+                <a href="#operation--metrics-get"> List metrics </a>
+              </li>
+              <li>
+                <a href="#operation--metrics--id--get"> Get metric </a>
+              </li>
+            </ul>
+          </section>
+          <section>
+            <a href="#tag-Custom-metrics">Custom metrics</a>
+            <ul>
+              <li>
+                <a href="#operation--custom-metrics-data-post"> Add data points </a>
+              </li>
+              <li>
+                <a href="#operation--custom-metrics-get"> List custom metrics </a>
+              </li>
+              <li>
+                <a href="#operation--custom-metrics--id--get"> Get custom metric </a>
+              </li>
+            </ul>
+          </section>
+          <h5>Schema Definitions</h5>
+          <a href="#definition-System-Status"> System Status </a>
+          <a href="#definition-Live"> Live </a>
+          <a href="#definition-Component"> Component </a>
+          <a href="#definition-Incident"> Incident </a>
+          <a href="#definition-Maintenance"> Maintenance </a>
+          <a href="#definition-Metric"> Metric </a>
+          <a href="#definition-Custom-Metric"> Custom Metric </a>
+          <a href="#definition-Custom-Metric-Data"> Custom Metric Data </a>
+          <a href="#definition-Metric-Data-Points"> Metric Data Points </a>
+          <a href="#definition-Data-Point"> Data Point </a>
+          <a href="#definition-Auth-Error"> Auth Error </a>
+          <a href="#definition-Parse-Error"> Parse Error </a>
+          <a href="#definition-Not-found"> Not found </a>
+        </nav>
+      </div>
+      <div id="docs" class="row collapse expanded drawer" data-drawer>
+        <button class="floating-menu-icon" type="button" data-drawer-slide="right">
+          <span class="hamburger"></span>
+        </button>
+        <div class="example-box doc-content"></div>
+        <article>
+          <h1 class="doc-title">PingPong API docs
+            <span>API Reference</span>
+          </h1>
+          <div id="introduction" data-traverse-target="introduction">
+            <div class="doc-row">
+              <div class="doc-copy">
+                <p>This is the API documentation for
+                  <a href="https://pingpong.one">PingPong Status Pages</a>.</p>
+                <p>To utilize the API you need an account,
+                  <a href="https://my.pingpong.one/account/signup/?plan=pro">create your account today.</a>
+                </p>
+                <p>The PingPong API is organized around the
+                  <a href="https://en.wikipedia.org/wiki/Representational_state_transfer">REST</a> methodology, and it uses resource-oriented URLs, and common HTTP response codes to indicate API errors. All requests are authenticated using an <code>api-key</code> which can be obtained from your developer dashboard. Create an account today to obtain your API key.</p>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>API Endpoint</h5>
+                  <!-- <div class="hljs"> --><pre><code>https://api.pingpong.one/rest/v1</code></pre>
+                  <!-- </div> -->
+                  <h5>Terms of Service:
+                    <a href="https://pingpong.one/terms/">https://pingpong.one/terms/</a>
+                  </h5>
+                  <h5>Contact:
+                    <a href="mailto:support@pingpong.one">support@pingpong.one</a>
+                  </h5>
+                  <h5>Request Content-Types:
+                    <span>application/json</span>
+                  </h5>
+                  <h5>Response Content-Types:
+                    <span>application/json</span>
+                  </h5>
+                  <h5>Schemes:
+                    <span>https</span>
+                  </h5>
+                  <h5>Version:
+                    <span>1.0.0</span>
+                  </h5>
+                </section>
+              </div>
+            </div>
+          </div>
+          <!-- <h1 id="security" data-traverse-target="security">Security</h1> -->
+          <h1 id="authentication" data-traverse-target="authentication">Authentication</h1>
+          <div id="security-definition-Token" class="panel">
+            <div class="doc-row">
+              <div class="doc-copy">
+                <h3 class="security-definition-title">
+                  <span class="security-name">Token</span>
+                  <span class="swagger-security-definition-apiKey"></span>
+                </h3>
+                <section class="security-definition-description">
+                  <h6 id="obtaining-your-api-key">Obtaining your API-key</h6>
+                  <p>Signin to your account and go to
+                    <a href="https://my.pingpong.one/integrations/api/">new api integration</a>.</p>
+                  <h6 id="using-your-api-key">Using your API-key</h6>
+                  <p>Authenticate to the API by passing the authorization token header to all requests, like this example:</p> <pre><code class="hljs">curl -H <span class="hljs-string">"Authorization: Token 5c10213ag542d5738bbeaabbe12f35ef9c89f537"</span> \
+  https:<span class="hljs-regexp">//</span>api.pingpong.one<span class="hljs-regexp">/rest/</span>v1<span class="hljs-regexp">/status</span>
+</code></pre> </section>
+                <section class="swagger-security-definition-properties">
+                  <div class="prop-row security-definition-property">
+                    <div class="prop-name">
+                      <div class="prop-title security-definition-property-name">type</div>
+                    </div>
+                    <div class="prop-value security-definition-property-type"> apiKey </div>
+                  </div>
+                  <div class="prop-row security-definition-property">
+                    <div class="prop-name">
+                      <div class="prop-title security-definition-property-name">in</div>
+                    </div>
+                    <div class="prop-value security-definition-property-type"> header </div>
+                  </div>
+                </section>
+              </div>
+            </div>
+          </div>
+          <h1 id="tag-Status" class="swagger-summary-tag" data-traverse-target="tag-Status">Status</h1>
+          <div class="tag-description doc-row">
+            <div class="doc-copy">
+              <p>Global status page status, for all components.</p>
+            </div>
+          </div>
+          <div id="operation--status-get" class="operation panel" data-traverse-target="operation--status-get">
+            <!-- <section class="operation-tags row"> -->
+            <!-- <div class="doc-copy"> -->
+            <div class="operation-tags">
+              <a class="label" href="#tag-Status">Status</a>
+              <!---->
+            </div>
+            <!-- </div> -->
+            <!-- </section> -->
+            <h2 class="operation-title">
+              <span class="operation-summary">Get system status</span>
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-path">
+                  <span class="operation-method">GET</span>
+                  <span class="operation-path">/status</span>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-description">
+                  <p>Returns current status for all components. This endpoint could be used for widgets or badges to showcase current status.</p>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy"> </div>
+              <div class="doc-examples"></div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-responses">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">200 OK</div>
+                      <div class="prop-ref">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/System Status">System Status</a>
+                        </span>
+                      </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>OK</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">401 Unauthorized</div>
+                      <div class="prop-ref">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/Auth Error">Auth Error</a>
+                        </span>
+                      </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>Unauthorized, missing or invalid API-key, see
+                        <a href="#authentication">Authentication</a>
+                      </p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <h5>Response Content-Types:
+                  <span>application/json</span>
+                </h5>
+                <section>
+                  <h5>Response Example
+                    <span>(200 OK)</span>
+                  </h5>
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
+  <span class="hljs-attr">&quot;status&quot;</span>: <span class="hljs-string">&quot;All systems operational&quot;</span>,
+  <span class="hljs-attr">&quot;status_color&quot;</span>: <span class="hljs-string">&quot;green&quot;</span>
+}
+</code></pre> </body>
+                  </html>
+                  <!-- </div> -->
+                </section>
+                <section>
+                  <h5>Response Example
+                    <span>(401 Unauthorized)</span>
+                  </h5>
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
+  <span class="hljs-attr">&quot;detail&quot;</span>: <span class="hljs-string">&quot;Authentication credentials were not provided.&quot;</span>
+}
+</code></pre> </body>
+                  </html>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+          </div>
+          <h1 id="tag-Live" class="swagger-summary-tag" data-traverse-target="tag-Live">Live</h1>
+          <div class="tag-description doc-row">
+            <div class="doc-copy">
+              <p>Ongoing incidents and maintenance.</p>
+            </div>
+          </div>
+          <div id="operation--live-get" class="operation panel" data-traverse-target="operation--live-get">
+            <!-- <section class="operation-tags row"> -->
+            <!-- <div class="doc-copy"> -->
+            <div class="operation-tags">
+              <a class="label" href="#tag-Live">Live</a>
+              <!---->
+            </div>
+            <!-- </div> -->
+            <!-- </section> -->
+            <h2 class="operation-title">
+              <span class="operation-summary">Get live events</span>
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-path">
+                  <span class="operation-method">GET</span>
+                  <span class="operation-path">/live</span>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-description">
+                  <p>Returns information about status page and lists of currently ongoing incidents or maintenance. Useful for notification bar widgets.</p>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy"> </div>
+              <div class="doc-examples"></div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-responses">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">200 OK</div>
+                      <div class="prop-ref">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/Live">Live</a>
+                        </span>
+                      </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>OK</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">401 Unauthorized</div>
+                      <div class="prop-ref">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/Auth Error">Auth Error</a>
+                        </span>
+                      </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>Unauthorized, missing or invalid API-key, see
+                        <a href="#authentication">Authentication</a>
+                      </p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <h5>Response Content-Types:
+                  <span>application/json</span>
+                </h5>
+                <section>
+                  <h5>Response Example
+                    <span>(200 OK)</span>
+                  </h5>
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
+  <span class="hljs-attr">&quot;project&quot;</span>: <span class="hljs-string">&quot;ACME&quot;</span>,
+  <span class="hljs-attr">&quot;url&quot;</span>: <span class="hljs-string">&quot;https://acme.pingpong.host&quot;</span>,
+  <span class="hljs-attr">&quot;incidents&quot;</span>: [],
+  <span class="hljs-attr">&quot;maintenance&quot;</span>: [
+    {
+      <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-string">&quot;k9gVLLPoNgbPA72HQKvy2b&quot;</span>,
+      <span class="hljs-attr">&quot;project&quot;</span>: <span class="hljs-string">&quot;ACME&quot;</span>,
+      <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;Database migration&quot;</span>,
+      <span class="hljs-attr">&quot;created_at&quot;</span>: <span class="hljs-string">&quot;2020-02-03T12:15:58Z&quot;</span>,
+      <span class="hljs-attr">&quot;status&quot;</span>: <span class="hljs-string">&quot;In progress&quot;</span>,
+      <span class="hljs-attr">&quot;affected_components&quot;</span>: [
+        {
+          <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-string">&quot;GZ7tIAmLacSDW7sHe9Fskl&quot;</span>,
+          <span class="hljs-attr">&quot;project&quot;</span>: <span class="hljs-string">&quot;ACME&quot;</span>,
+          <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;API&quot;</span>,
+          <span class="hljs-attr">&quot;group&quot;</span>: <span class="hljs-string">&quot;System&quot;</span>,
+          <span class="hljs-attr">&quot;created_at&quot;</span>: <span class="hljs-string">&quot;2020-02-07T14:22:03Z&quot;</span>,
+          <span class="hljs-attr">&quot;status&quot;</span>: <span class="hljs-string">&quot;Maintenance mode&quot;</span>,
+          <span class="hljs-attr">&quot;status_color&quot;</span>: <span class="hljs-string">&quot;gray&quot;</span>,
+          <span class="hljs-attr">&quot;description&quot;</span>: <span class="hljs-literal">null</span>,
+          <span class="hljs-attr">&quot;showcased&quot;</span>: <span class="hljs-literal">true</span>
+        }
+      ],
+      <span class="hljs-attr">&quot;reported_by&quot;</span>: <span class="hljs-string">&quot;Donald Duck&quot;</span>,
+      <span class="hljs-attr">&quot;scheduled_for&quot;</span>: <span class="hljs-string">&quot;2020-02-10T22:00:00Z&quot;</span>,
+      <span class="hljs-attr">&quot;ends_at&quot;</span>: <span class="hljs-string">&quot;2020-02-10T23:00:00Z&quot;</span>,
+      <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;Upgrading version of &lt;b&gt;main database&lt;/b&gt; from version 9.0 to &lt;strikethrough&gt;10.0&lt;/strikethrough&gt; 10.2.&quot;</span>
+    }
+  ]
+}
+</code></pre> </body>
+                  </html>
+                  <!-- </div> -->
+                </section>
+                <section>
+                  <h5>Response Example
+                    <span>(401 Unauthorized)</span>
+                  </h5>
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
+  <span class="hljs-attr">&quot;detail&quot;</span>: <span class="hljs-string">&quot;Authentication credentials were not provided.&quot;</span>
+}
+</code></pre> </body>
+                  </html>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+          </div>
+          <h1 id="tag-Component" class="swagger-summary-tag" data-traverse-target="tag-Component">Component</h1>
+          <div class="tag-description doc-row">
+            <div class="doc-copy">
+              <p>Components are the individual parts of your system that can be listed on your status page.</p>
+            </div>
+          </div>
+          <div id="operation--components-get" class="operation panel" data-traverse-target="operation--components-get">
+            <!-- <section class="operation-tags row"> -->
+            <!-- <div class="doc-copy"> -->
+            <div class="operation-tags">
+              <a class="label" href="#tag-Component">Component</a>
+              <!---->
+            </div>
+            <!-- </div> -->
+            <!-- </section> -->
+            <h2 class="operation-title">
+              <span class="operation-summary">List components</span>
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-path">
+                  <span class="operation-method">GET</span>
+                  <span class="operation-path">/components</span>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-description">
+                  <p>Returns a list of all components.</p>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy"> </div>
+              <div class="doc-examples"></div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-responses">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">200 OK</div>
+                      <div class="prop-ref">
+                        <span class="json-schema-ref-array">
+                          <a class="json-schema-ref" href="#/definitions/Component">Component</a>
+                        </span>
+                      </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>OK</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-inner">
+                    <div class="prop-name">type</div>
+                    <div class="prop-value">
+                      <span class="json-property-type">
+                        <span class="json-schema-ref-array">
+                          <a class="json-schema-ref" href="#/definitions/Component">Component</a>
+                        </span>
+                      </span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">401 Unauthorized</div>
+                      <div class="prop-ref">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/Auth Error">Auth Error</a>
+                        </span>
+                      </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>Unauthorized, missing or invalid API-key, see
+                        <a href="#authentication">Authentication</a>
+                      </p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <h5>Response Content-Types:
+                  <span>application/json</span>
+                </h5>
+                <section>
+                  <h5>Response Example
+                    <span>(200 OK)</span>
+                  </h5>
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">[
+  {
+    <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-string">&quot;GZ7tIAmLacSDW7sHe9Fskl&quot;</span>,
+    <span class="hljs-attr">&quot;project&quot;</span>: <span class="hljs-string">&quot;ACME&quot;</span>,
+    <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;API&quot;</span>,
+    <span class="hljs-attr">&quot;group&quot;</span>: <span class="hljs-string">&quot;System&quot;</span>,
+    <span class="hljs-attr">&quot;created_at&quot;</span>: <span class="hljs-string">&quot;2020-02-07T14:22:03Z&quot;</span>,
+    <span class="hljs-attr">&quot;status&quot;</span>: <span class="hljs-string">&quot;Operational&quot;</span>,
+    <span class="hljs-attr">&quot;status_color&quot;</span>: <span class="hljs-string">&quot;green&quot;</span>,
+    <span class="hljs-attr">&quot;description&quot;</span>: <span class="hljs-literal">null</span>,
+    <span class="hljs-attr">&quot;showcased&quot;</span>: <span class="hljs-literal">true</span>
+  },
+  {
+    <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-string">&quot;bHH6yReKWkL92llkdk6sd7&quot;</span>,
+    <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;DB&quot;</span>,
+    <span class="hljs-attr">&quot;group&quot;</span>: <span class="hljs-string">&quot;System&quot;</span>,
+    <span class="hljs-attr">&quot;created_at&quot;</span>: <span class="hljs-string">&quot;2020-03-12T15:42:19Z&quot;</span>,
+    <span class="hljs-attr">&quot;status&quot;</span>: <span class="hljs-string">&quot;Major issues&quot;</span>,
+    <span class="hljs-attr">&quot;status_color&quot;</span>: <span class="hljs-string">&quot;orange&quot;</span>,
+    <span class="hljs-attr">&quot;description&quot;</span>: <span class="hljs-string">&quot;All databases, including read-only replicas&quot;</span>,
+    <span class="hljs-attr">&quot;showcased&quot;</span>: <span class="hljs-literal">false</span>
+  }
+]
+</code></pre> </body>
+                  </html>
+                  <!-- </div> -->
+                </section>
+                <section>
+                  <h5>Response Example
+                    <span>(401 Unauthorized)</span>
+                  </h5>
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
+  <span class="hljs-attr">&quot;detail&quot;</span>: <span class="hljs-string">&quot;Authentication credentials were not provided.&quot;</span>
+}
+</code></pre> </body>
+                  </html>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+          </div>
+          <div id="operation--components--id--get" class="operation panel" data-traverse-target="operation--components--id--get">
+            <!-- <section class="operation-tags row"> -->
+            <!-- <div class="doc-copy"> -->
+            <div class="operation-tags">
+              <a class="label" href="#tag-Component">Component</a>
+              <!---->
+            </div>
+            <!-- </div> -->
+            <!-- </section> -->
+            <h2 class="operation-title">
+              <span class="operation-summary">Get component</span>
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-path">
+                  <span class="operation-method">GET</span>
+                  <span class="operation-path">/components/{id}</span>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-description">
+                  <p>Returns a single component.</p>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-request-params">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">id:
+                        <span class="prop-type">
+                          <span class="json-property-type">string</span>
+                          <span class="json-property-range" title="Value limits"></span>
+                        </span>
+                      </div>
+                      <span class="json-property-required"></span>
+                      <div class="prop-subtitle"> in path </div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Unique ID for the component to retrieve</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples"></div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-responses">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">200 OK</div>
+                      <div class="prop-ref">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/Component">Component</a>
+                        </span>
+                      </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>OK</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">401 Unauthorized</div>
+                      <div class="prop-ref">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/Auth Error">Auth Error</a>
+                        </span>
+                      </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>Unauthorized, missing or invalid API-key, see
+                        <a href="#authentication">Authentication</a>
+                      </p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">404 Not Found</div>
+                      <div class="prop-ref">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/Not found">Not found</a>
+                        </span>
+                      </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>Object not found, check the <code>id</code> parameter</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <h5>Response Content-Types:
+                  <span>application/json</span>
+                </h5>
+                <section>
+                  <h5>Response Example
+                    <span>(200 OK)</span>
+                  </h5>
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
+  <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-string">&quot;GZ7tIAmLacSDW7sHe9Fskl&quot;</span>,
+  <span class="hljs-attr">&quot;project&quot;</span>: <span class="hljs-string">&quot;ACME&quot;</span>,
+  <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;API&quot;</span>,
+  <span class="hljs-attr">&quot;group&quot;</span>: <span class="hljs-string">&quot;System&quot;</span>,
+  <span class="hljs-attr">&quot;created_at&quot;</span>: <span class="hljs-string">&quot;2020-02-07T14:22:03Z&quot;</span>,
+  <span class="hljs-attr">&quot;status&quot;</span>: <span class="hljs-string">&quot;Operational&quot;</span>,
+  <span class="hljs-attr">&quot;status_color&quot;</span>: <span class="hljs-string">&quot;green&quot;</span>,
+  <span class="hljs-attr">&quot;description&quot;</span>: <span class="hljs-literal">null</span>,
+  <span class="hljs-attr">&quot;showcased&quot;</span>: <span class="hljs-literal">true</span>
+}
+</code></pre> </body>
+                  </html>
+                  <!-- </div> -->
+                </section>
+                <section>
+                  <h5>Response Example
+                    <span>(401 Unauthorized)</span>
+                  </h5>
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
+  <span class="hljs-attr">&quot;detail&quot;</span>: <span class="hljs-string">&quot;Authentication credentials were not provided.&quot;</span>
+}
+</code></pre> </body>
+                  </html>
+                  <!-- </div> -->
+                </section>
+                <section>
+                  <h5>Response Example
+                    <span>(404 Not Found)</span>
+                  </h5>
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
+  <span class="hljs-attr">&quot;detail&quot;</span>: <span class="hljs-string">&quot;Not found.&quot;</span>
+}
+</code></pre> </body>
+                  </html>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+          </div>
+          <h1 id="tag-Incident" class="swagger-summary-tag" data-traverse-target="tag-Incident">Incident</h1>
+          <div class="tag-description doc-row">
+            <div class="doc-copy">
+              <p>Incidents are events that affect your service, which you want to communicate to your users.</p>
+            </div>
+          </div>
+          <div id="operation--incidents-get" class="operation panel" data-traverse-target="operation--incidents-get">
+            <!-- <section class="operation-tags row"> -->
+            <!-- <div class="doc-copy"> -->
+            <div class="operation-tags">
+              <a class="label" href="#tag-Incident">Incident</a>
+              <!---->
+            </div>
+            <!-- </div> -->
+            <!-- </section> -->
+            <h2 class="operation-title">
+              <span class="operation-summary">List incidents</span>
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-path">
+                  <span class="operation-method">GET</span>
+                  <span class="operation-path">/incidents</span>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-description">
+                  <p>Returns a list of all incident events.</p>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy"> </div>
+              <div class="doc-examples"></div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-responses">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">200 OK</div>
+                      <div class="prop-ref">
+                        <span class="json-schema-ref-array">
+                          <a class="json-schema-ref" href="#/definitions/Incident">Incident</a>
+                        </span>
+                      </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>OK</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-inner">
+                    <div class="prop-name">type</div>
+                    <div class="prop-value">
+                      <span class="json-property-type">
+                        <span class="json-schema-ref-array">
+                          <a class="json-schema-ref" href="#/definitions/Incident">Incident</a>
+                        </span>
+                      </span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">401 Unauthorized</div>
+                      <div class="prop-ref">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/Auth Error">Auth Error</a>
+                        </span>
+                      </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>Unauthorized, missing or invalid API-key, see
+                        <a href="#authentication">Authentication</a>
+                      </p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <h5>Response Content-Types:
+                  <span>application/json</span>
+                </h5>
+                <section>
+                  <h5>Response Example
+                    <span>(200 OK)</span>
+                  </h5>
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">[
+  {
+    <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-string">&quot;LaPtdb2hXX3447YH7XYrt9&quot;</span>,
+    <span class="hljs-attr">&quot;project&quot;</span>: <span class="hljs-string">&quot;ACME&quot;</span>,
+    <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;Database replica connection failure&quot;</span>,
+    <span class="hljs-attr">&quot;created_at&quot;</span>: <span class="hljs-string">&quot;2020-02-03T12:15:58Z&quot;</span>,
+    <span class="hljs-attr">&quot;status&quot;</span>: <span class="hljs-string">&quot;Verifying&quot;</span>,
+    <span class="hljs-attr">&quot;affected_components&quot;</span>: [
+      {
+        <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-string">&quot;GZ7tIAmLacSDW7sHe9Fskl&quot;</span>,
+        <span class="hljs-attr">&quot;project&quot;</span>: <span class="hljs-string">&quot;ACME&quot;</span>,
+        <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;API&quot;</span>,
+        <span class="hljs-attr">&quot;group&quot;</span>: <span class="hljs-string">&quot;System&quot;</span>,
+        <span class="hljs-attr">&quot;created_at&quot;</span>: <span class="hljs-string">&quot;2020-02-07T14:22:03Z&quot;</span>,
+        <span class="hljs-attr">&quot;status&quot;</span>: <span class="hljs-string">&quot;Critial state&quot;</span>,
+        <span class="hljs-attr">&quot;status_color&quot;</span>: <span class="hljs-string">&quot;red&quot;</span>,
+        <span class="hljs-attr">&quot;description&quot;</span>: <span class="hljs-literal">null</span>,
+        <span class="hljs-attr">&quot;showcased&quot;</span>: <span class="hljs-literal">true</span>
+      }
+    ],
+    <span class="hljs-attr">&quot;reported_by&quot;</span>: <span class="hljs-string">&quot;Donald Duck&quot;</span>,
+    <span class="hljs-attr">&quot;occurred_at&quot;</span>: <span class="hljs-string">&quot;2020-03-18T09:02:24Z&quot;</span>,
+    <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;&lt;b&gt;Summary&lt;/b&gt;&lt;br&gt;API can not connect to the database replica.&quot;</span>,
+    <span class="hljs-attr">&quot;updates&quot;</span>: [
+      {
+        <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-string">&quot;LlPtdb4hXX3447YH7XYrt9&quot;</span>,
+        <span class="hljs-attr">&quot;created_at&quot;</span>: <span class="hljs-string">&quot;2020-03-18T09:02:39Z&quot;</span>,
+        <span class="hljs-attr">&quot;reported_by&quot;</span>: <span class="hljs-string">&quot;Huey&quot;</span>,
+        <span class="hljs-attr">&quot;status&quot;</span>: <span class="hljs-string">&quot;Investigating&quot;</span>,
+        <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;Our devs are looking into the issue.&quot;</span>
+      },
+      {
+        <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-string">&quot;GkSMzCWZfLZzam9AK4oGKi&quot;</span>,
+        <span class="hljs-attr">&quot;created_at&quot;</span>: <span class="hljs-string">&quot;2020-03-18T09:02:56Z&quot;</span>,
+        <span class="hljs-attr">&quot;reported_by&quot;</span>: <span class="hljs-string">&quot;Dewey&quot;</span>,
+        <span class="hljs-attr">&quot;status&quot;</span>: <span class="hljs-string">&quot;Identified&quot;</span>,
+        <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;Our devs have found the issue and researching a solution.&quot;</span>
+      },
+      {
+        <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-string">&quot;J7eS9zJpNbVrXb2FxVuUik&quot;</span>,
+        <span class="hljs-attr">&quot;created_at&quot;</span>: <span class="hljs-string">&quot;2020-03-18T09:03:31Z&quot;</span>,
+        <span class="hljs-attr">&quot;reported_by&quot;</span>: <span class="hljs-string">&quot;Louie&quot;</span>,
+        <span class="hljs-attr">&quot;status&quot;</span>: <span class="hljs-string">&quot;Verifying&quot;</span>,
+        <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;A fix has been deployed and our devs are verifying the solution.&quot;</span>
+      }
+    ]
+  }
+]
+</code></pre> </body>
+                  </html>
+                  <!-- </div> -->
+                </section>
+                <section>
+                  <h5>Response Example
+                    <span>(401 Unauthorized)</span>
+                  </h5>
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
+  <span class="hljs-attr">&quot;detail&quot;</span>: <span class="hljs-string">&quot;Authentication credentials were not provided.&quot;</span>
+}
+</code></pre> </body>
+                  </html>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+          </div>
+          <div id="operation--incidents-live-get" class="operation panel" data-traverse-target="operation--incidents-live-get">
+            <!-- <section class="operation-tags row"> -->
+            <!-- <div class="doc-copy"> -->
+            <div class="operation-tags">
+              <a class="label" href="#tag-Incident">Incident</a>
+              <!---->
+            </div>
+            <!-- </div> -->
+            <!-- </section> -->
+            <h2 class="operation-title">
+              <span class="operation-summary">Live incidents</span>
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-path">
+                  <span class="operation-method">GET</span>
+                  <span class="operation-path">/incidents/live</span>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-description">
+                  <p>Returns a list of all ongoing incident events that are not resolved.</p>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy"> </div>
+              <div class="doc-examples"></div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-responses">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">200 OK</div>
+                      <div class="prop-ref">
+                        <span class="json-schema-ref-array">
+                          <a class="json-schema-ref" href="#/definitions/Incident">Incident</a>
+                        </span>
+                      </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>OK</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-inner">
+                    <div class="prop-name">type</div>
+                    <div class="prop-value">
+                      <span class="json-property-type">
+                        <span class="json-schema-ref-array">
+                          <a class="json-schema-ref" href="#/definitions/Incident">Incident</a>
+                        </span>
+                      </span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">401 Unauthorized</div>
+                      <div class="prop-ref">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/Auth Error">Auth Error</a>
+                        </span>
+                      </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>Unauthorized, missing or invalid API-key, see
+                        <a href="#authentication">Authentication</a>
+                      </p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <h5>Response Content-Types:
+                  <span>application/json</span>
+                </h5>
+                <section>
+                  <h5>Response Example
+                    <span>(200 OK)</span>
+                  </h5>
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">[
+  {
+    <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-string">&quot;LaPtdb2hXX3447YH7XYrt9&quot;</span>,
+    <span class="hljs-attr">&quot;project&quot;</span>: <span class="hljs-string">&quot;ACME&quot;</span>,
+    <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;Database replica connection failure&quot;</span>,
+    <span class="hljs-attr">&quot;created_at&quot;</span>: <span class="hljs-string">&quot;2020-02-03T12:15:58Z&quot;</span>,
+    <span class="hljs-attr">&quot;status&quot;</span>: <span class="hljs-string">&quot;Investigating&quot;</span>,
+    <span class="hljs-attr">&quot;affected_components&quot;</span>: [
+      {
+        <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-string">&quot;GZ7tIAmLacSDW7sHe9Fskl&quot;</span>,
+        <span class="hljs-attr">&quot;project&quot;</span>: <span class="hljs-string">&quot;ACME&quot;</span>,
+        <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;API&quot;</span>,
+        <span class="hljs-attr">&quot;group&quot;</span>: <span class="hljs-string">&quot;System&quot;</span>,
+        <span class="hljs-attr">&quot;created_at&quot;</span>: <span class="hljs-string">&quot;2020-02-07T14:22:03Z&quot;</span>,
+        <span class="hljs-attr">&quot;status&quot;</span>: <span class="hljs-string">&quot;Critial state&quot;</span>,
+        <span class="hljs-attr">&quot;status_color&quot;</span>: <span class="hljs-string">&quot;red&quot;</span>,
+        <span class="hljs-attr">&quot;description&quot;</span>: <span class="hljs-literal">null</span>,
+        <span class="hljs-attr">&quot;showcased&quot;</span>: <span class="hljs-literal">true</span>
+      }
+    ],
+    <span class="hljs-attr">&quot;reported_by&quot;</span>: <span class="hljs-string">&quot;Donald Duck&quot;</span>,
+    <span class="hljs-attr">&quot;occurred_at&quot;</span>: <span class="hljs-string">&quot;2020-03-18T09:02:24Z&quot;</span>,
+    <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;&lt;b&gt;Summary&lt;/b&gt;&lt;br&gt;API can not connect to the database replica.&quot;</span>,
+    <span class="hljs-attr">&quot;updates&quot;</span>: []
+  }
+]
+</code></pre> </body>
+                  </html>
+                  <!-- </div> -->
+                </section>
+                <section>
+                  <h5>Response Example
+                    <span>(401 Unauthorized)</span>
+                  </h5>
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
+  <span class="hljs-attr">&quot;detail&quot;</span>: <span class="hljs-string">&quot;Authentication credentials were not provided.&quot;</span>
+}
+</code></pre> </body>
+                  </html>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+          </div>
+          <div id="operation--incidents--id--get" class="operation panel" data-traverse-target="operation--incidents--id--get">
+            <!-- <section class="operation-tags row"> -->
+            <!-- <div class="doc-copy"> -->
+            <div class="operation-tags">
+              <a class="label" href="#tag-Incident">Incident</a>
+              <!---->
+            </div>
+            <!-- </div> -->
+            <!-- </section> -->
+            <h2 class="operation-title">
+              <span class="operation-summary">Get incident</span>
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-path">
+                  <span class="operation-method">GET</span>
+                  <span class="operation-path">/incidents/{id}</span>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-description">
+                  <p>Returns a single incident event.</p>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-request-params">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">id:
+                        <span class="prop-type">
+                          <span class="json-property-type">string</span>
+                          <span class="json-property-range" title="Value limits"></span>
+                        </span>
+                      </div>
+                      <span class="json-property-required"></span>
+                      <div class="prop-subtitle"> in path </div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Unique ID for the incident event to retrieve</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples"></div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-responses">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">200 OK</div>
+                      <div class="prop-ref">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/Incident">Incident</a>
+                        </span>
+                      </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>OK</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">401 Unauthorized</div>
+                      <div class="prop-ref">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/Auth Error">Auth Error</a>
+                        </span>
+                      </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>Unauthorized, missing or invalid API-key, see
+                        <a href="#authentication">Authentication</a>
+                      </p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">404 Not Found</div>
+                      <div class="prop-ref">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/Not found">Not found</a>
+                        </span>
+                      </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>Object not found, check the <code>id</code> parameter</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <h5>Response Content-Types:
+                  <span>application/json</span>
+                </h5>
+                <section>
+                  <h5>Response Example
+                    <span>(200 OK)</span>
+                  </h5>
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
+  <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-string">&quot;LaPtdb2hXX3447YH7XYrt9&quot;</span>,
+  <span class="hljs-attr">&quot;project&quot;</span>: <span class="hljs-string">&quot;ACME&quot;</span>,
+  <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;Database replica connection failure&quot;</span>,
+  <span class="hljs-attr">&quot;created_at&quot;</span>: <span class="hljs-string">&quot;2020-02-03T12:15:58Z&quot;</span>,
+  <span class="hljs-attr">&quot;status&quot;</span>: <span class="hljs-string">&quot;Verifying&quot;</span>,
+  <span class="hljs-attr">&quot;affected_components&quot;</span>: [
+    {
+      <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-string">&quot;GZ7tIAmLacSDW7sHe9Fskl&quot;</span>,
+      <span class="hljs-attr">&quot;project&quot;</span>: <span class="hljs-string">&quot;ACME&quot;</span>,
+      <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;API&quot;</span>,
+      <span class="hljs-attr">&quot;group&quot;</span>: <span class="hljs-string">&quot;System&quot;</span>,
+      <span class="hljs-attr">&quot;created_at&quot;</span>: <span class="hljs-string">&quot;2020-02-07T14:22:03Z&quot;</span>,
+      <span class="hljs-attr">&quot;status&quot;</span>: <span class="hljs-string">&quot;Critial state&quot;</span>,
+      <span class="hljs-attr">&quot;status_color&quot;</span>: <span class="hljs-string">&quot;red&quot;</span>,
+      <span class="hljs-attr">&quot;description&quot;</span>: <span class="hljs-literal">null</span>,
+      <span class="hljs-attr">&quot;showcased&quot;</span>: <span class="hljs-literal">true</span>
+    }
+  ],
+  <span class="hljs-attr">&quot;reported_by&quot;</span>: <span class="hljs-string">&quot;Donald Duck&quot;</span>,
+  <span class="hljs-attr">&quot;occurred_at&quot;</span>: <span class="hljs-string">&quot;2020-03-18T09:02:24Z&quot;</span>,
+  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;&lt;b&gt;Summary&lt;/b&gt;&lt;br&gt;API can not connect to the database replica.&quot;</span>,
+  <span class="hljs-attr">&quot;updates&quot;</span>: [
+    {
+      <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-string">&quot;LlPtdb4hXX3447YH7XYrt9&quot;</span>,
+      <span class="hljs-attr">&quot;created_at&quot;</span>: <span class="hljs-string">&quot;2020-03-18T09:02:39Z&quot;</span>,
+      <span class="hljs-attr">&quot;reported_by&quot;</span>: <span class="hljs-string">&quot;Huey&quot;</span>,
+      <span class="hljs-attr">&quot;status&quot;</span>: <span class="hljs-string">&quot;Investigating&quot;</span>,
+      <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;Our devs are looking into the issue.&quot;</span>
+    },
+    {
+      <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-string">&quot;GkSMzCWZfLZzam9AK4oGKi&quot;</span>,
+      <span class="hljs-attr">&quot;created_at&quot;</span>: <span class="hljs-string">&quot;2020-03-18T09:02:56Z&quot;</span>,
+      <span class="hljs-attr">&quot;reported_by&quot;</span>: <span class="hljs-string">&quot;Dewey&quot;</span>,
+      <span class="hljs-attr">&quot;status&quot;</span>: <span class="hljs-string">&quot;Identified&quot;</span>,
+      <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;Our devs have found the issue and researching a solution.&quot;</span>
+    },
+    {
+      <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-string">&quot;J7eS9zJpNbVrXb2FxVuUik&quot;</span>,
+      <span class="hljs-attr">&quot;created_at&quot;</span>: <span class="hljs-string">&quot;2020-03-18T09:03:31Z&quot;</span>,
+      <span class="hljs-attr">&quot;reported_by&quot;</span>: <span class="hljs-string">&quot;Louie&quot;</span>,
+      <span class="hljs-attr">&quot;status&quot;</span>: <span class="hljs-string">&quot;Verifying&quot;</span>,
+      <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;A fix has been deployed and our devs are verifying the solution.&quot;</span>
+    }
+  ]
+}
+</code></pre> </body>
+                  </html>
+                  <!-- </div> -->
+                </section>
+                <section>
+                  <h5>Response Example
+                    <span>(401 Unauthorized)</span>
+                  </h5>
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
+  <span class="hljs-attr">&quot;detail&quot;</span>: <span class="hljs-string">&quot;Authentication credentials were not provided.&quot;</span>
+}
+</code></pre> </body>
+                  </html>
+                  <!-- </div> -->
+                </section>
+                <section>
+                  <h5>Response Example
+                    <span>(404 Not Found)</span>
+                  </h5>
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
+  <span class="hljs-attr">&quot;detail&quot;</span>: <span class="hljs-string">&quot;Not found.&quot;</span>
+}
+</code></pre> </body>
+                  </html>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+          </div>
+          <h1 id="tag-Maintenance" class="swagger-summary-tag" data-traverse-target="tag-Maintenance">Maintenance</h1>
+          <div class="tag-description doc-row">
+            <div class="doc-copy">
+              <p>Maintenance are scheduled future planned events that might interrupt your service, which you want to communicate to your users.</p>
+            </div>
+          </div>
+          <div id="operation--maintenances-get" class="operation panel" data-traverse-target="operation--maintenances-get">
+            <!-- <section class="operation-tags row"> -->
+            <!-- <div class="doc-copy"> -->
+            <div class="operation-tags">
+              <a class="label" href="#tag-Maintenance">Maintenance</a>
+              <!---->
+            </div>
+            <!-- </div> -->
+            <!-- </section> -->
+            <h2 class="operation-title">
+              <span class="operation-summary">List maintenance</span>
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-path">
+                  <span class="operation-method">GET</span>
+                  <span class="operation-path">/maintenances</span>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-description">
+                  <p>Returns a list of all maintenance events.</p>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy"> </div>
+              <div class="doc-examples"></div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-responses">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">200 OK</div>
+                      <div class="prop-ref">
+                        <span class="json-schema-ref-array">
+                          <a class="json-schema-ref" href="#/definitions/Maintenance">Maintenance</a>
+                        </span>
+                      </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>OK</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-inner">
+                    <div class="prop-name">type</div>
+                    <div class="prop-value">
+                      <span class="json-property-type">
+                        <span class="json-schema-ref-array">
+                          <a class="json-schema-ref" href="#/definitions/Maintenance">Maintenance</a>
+                        </span>
+                      </span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">401 Unauthorized</div>
+                      <div class="prop-ref">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/Auth Error">Auth Error</a>
+                        </span>
+                      </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>Unauthorized, missing or invalid API-key, see
+                        <a href="#authentication">Authentication</a>
+                      </p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <h5>Response Content-Types:
+                  <span>application/json</span>
+                </h5>
+                <section>
+                  <h5>Response Example
+                    <span>(200 OK)</span>
+                  </h5>
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">[
+  {
+    <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-string">&quot;k9gVLLPoNgbPA72HQKvy2b&quot;</span>,
+    <span class="hljs-attr">&quot;project&quot;</span>: <span class="hljs-string">&quot;ACME&quot;</span>,
+    <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;Database migration&quot;</span>,
+    <span class="hljs-attr">&quot;created_at&quot;</span>: <span class="hljs-string">&quot;2020-02-03T12:15:58Z&quot;</span>,
+    <span class="hljs-attr">&quot;status&quot;</span>: <span class="hljs-string">&quot;In progress&quot;</span>,
+    <span class="hljs-attr">&quot;affected_components&quot;</span>: [
+      {
+        <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-string">&quot;GZ7tIAmLacSDW7sHe9Fskl&quot;</span>,
+        <span class="hljs-attr">&quot;project&quot;</span>: <span class="hljs-string">&quot;ACME&quot;</span>,
+        <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;API&quot;</span>,
+        <span class="hljs-attr">&quot;group&quot;</span>: <span class="hljs-string">&quot;System&quot;</span>,
+        <span class="hljs-attr">&quot;created_at&quot;</span>: <span class="hljs-string">&quot;2020-02-07T14:22:03Z&quot;</span>,
+        <span class="hljs-attr">&quot;status&quot;</span>: <span class="hljs-string">&quot;Maintenance mode&quot;</span>,
+        <span class="hljs-attr">&quot;status_color&quot;</span>: <span class="hljs-string">&quot;gray&quot;</span>,
+        <span class="hljs-attr">&quot;description&quot;</span>: <span class="hljs-literal">null</span>,
+        <span class="hljs-attr">&quot;showcased&quot;</span>: <span class="hljs-literal">true</span>
+      }
+    ],
+    <span class="hljs-attr">&quot;reported_by&quot;</span>: <span class="hljs-string">&quot;Donald Duck&quot;</span>,
+    <span class="hljs-attr">&quot;scheduled_for&quot;</span>: <span class="hljs-string">&quot;2020-02-10T22:00:00Z&quot;</span>,
+    <span class="hljs-attr">&quot;ends_at&quot;</span>: <span class="hljs-string">&quot;2020-02-10T23:00:00Z&quot;</span>,
+    <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;Upgrading version of &lt;b&gt;main database&lt;/b&gt; from version 9.0 to &lt;strikethrough&gt;10.0&lt;/strikethrough&gt; 10.2.&quot;</span>
+  }
+]
+</code></pre> </body>
+                  </html>
+                  <!-- </div> -->
+                </section>
+                <section>
+                  <h5>Response Example
+                    <span>(401 Unauthorized)</span>
+                  </h5>
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
+  <span class="hljs-attr">&quot;detail&quot;</span>: <span class="hljs-string">&quot;Authentication credentials were not provided.&quot;</span>
+}
+</code></pre> </body>
+                  </html>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+          </div>
+          <div id="operation--maintenances--id--get" class="operation panel" data-traverse-target="operation--maintenances--id--get">
+            <!-- <section class="operation-tags row"> -->
+            <!-- <div class="doc-copy"> -->
+            <div class="operation-tags">
+              <a class="label" href="#tag-Maintenance">Maintenance</a>
+              <!---->
+            </div>
+            <!-- </div> -->
+            <!-- </section> -->
+            <h2 class="operation-title">
+              <span class="operation-summary">Get maintenance</span>
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-path">
+                  <span class="operation-method">GET</span>
+                  <span class="operation-path">/maintenances/{id}</span>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-description">
+                  <p>Returns a single maintenance event.</p>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-request-params">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">id:
+                        <span class="prop-type">
+                          <span class="json-property-type">string</span>
+                          <span class="json-property-range" title="Value limits"></span>
+                        </span>
+                      </div>
+                      <span class="json-property-required"></span>
+                      <div class="prop-subtitle"> in path </div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Unique ID for the maintenance event to retrieve</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples"></div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-responses">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">200 OK</div>
+                      <div class="prop-ref">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/Maintenance">Maintenance</a>
+                        </span>
+                      </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>OK</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">401 Unauthorized</div>
+                      <div class="prop-ref">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/Auth Error">Auth Error</a>
+                        </span>
+                      </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>Unauthorized, missing or invalid API-key, see
+                        <a href="#authentication">Authentication</a>
+                      </p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">404 Not Found</div>
+                      <div class="prop-ref">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/Not found">Not found</a>
+                        </span>
+                      </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>Object not found, check the <code>id</code> parameter</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <h5>Response Content-Types:
+                  <span>application/json</span>
+                </h5>
+                <section>
+                  <h5>Response Example
+                    <span>(200 OK)</span>
+                  </h5>
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
+  <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-string">&quot;k9gVLLPoNgbPA72HQKvy2b&quot;</span>,
+  <span class="hljs-attr">&quot;project&quot;</span>: <span class="hljs-string">&quot;ACME&quot;</span>,
+  <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;Database migration&quot;</span>,
+  <span class="hljs-attr">&quot;created_at&quot;</span>: <span class="hljs-string">&quot;2020-02-03T12:15:58Z&quot;</span>,
+  <span class="hljs-attr">&quot;status&quot;</span>: <span class="hljs-string">&quot;In progress&quot;</span>,
+  <span class="hljs-attr">&quot;affected_components&quot;</span>: [
+    {
+      <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-string">&quot;GZ7tIAmLacSDW7sHe9Fskl&quot;</span>,
+      <span class="hljs-attr">&quot;project&quot;</span>: <span class="hljs-string">&quot;ACME&quot;</span>,
+      <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;API&quot;</span>,
+      <span class="hljs-attr">&quot;group&quot;</span>: <span class="hljs-string">&quot;System&quot;</span>,
+      <span class="hljs-attr">&quot;created_at&quot;</span>: <span class="hljs-string">&quot;2020-02-07T14:22:03Z&quot;</span>,
+      <span class="hljs-attr">&quot;status&quot;</span>: <span class="hljs-string">&quot;Maintenance mode&quot;</span>,
+      <span class="hljs-attr">&quot;status_color&quot;</span>: <span class="hljs-string">&quot;gray&quot;</span>,
+      <span class="hljs-attr">&quot;description&quot;</span>: <span class="hljs-literal">null</span>,
+      <span class="hljs-attr">&quot;showcased&quot;</span>: <span class="hljs-literal">true</span>
+    }
+  ],
+  <span class="hljs-attr">&quot;reported_by&quot;</span>: <span class="hljs-string">&quot;Donald Duck&quot;</span>,
+  <span class="hljs-attr">&quot;scheduled_for&quot;</span>: <span class="hljs-string">&quot;2020-02-10T22:00:00Z&quot;</span>,
+  <span class="hljs-attr">&quot;ends_at&quot;</span>: <span class="hljs-string">&quot;2020-02-10T23:00:00Z&quot;</span>,
+  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;Upgrading version of &lt;b&gt;main database&lt;/b&gt; from version 9.0 to &lt;strikethrough&gt;10.0&lt;/strikethrough&gt; 10.2.&quot;</span>
+}
+</code></pre> </body>
+                  </html>
+                  <!-- </div> -->
+                </section>
+                <section>
+                  <h5>Response Example
+                    <span>(401 Unauthorized)</span>
+                  </h5>
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
+  <span class="hljs-attr">&quot;detail&quot;</span>: <span class="hljs-string">&quot;Authentication credentials were not provided.&quot;</span>
+}
+</code></pre> </body>
+                  </html>
+                  <!-- </div> -->
+                </section>
+                <section>
+                  <h5>Response Example
+                    <span>(404 Not Found)</span>
+                  </h5>
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
+  <span class="hljs-attr">&quot;detail&quot;</span>: <span class="hljs-string">&quot;Not found.&quot;</span>
+}
+</code></pre> </body>
+                  </html>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+          </div>
+          <h1 id="tag-Metrics" class="swagger-summary-tag" data-traverse-target="tag-Metrics">Metrics</h1>
+          <div class="tag-description doc-row">
+            <div class="doc-copy">
+              <p>Metrics monitored by the service.</p>
+            </div>
+          </div>
+          <div id="operation--metrics-get" class="operation panel" data-traverse-target="operation--metrics-get">
+            <!-- <section class="operation-tags row"> -->
+            <!-- <div class="doc-copy"> -->
+            <div class="operation-tags">
+              <a class="label" href="#tag-Metrics">Metrics</a>
+              <!---->
+            </div>
+            <!-- </div> -->
+            <!-- </section> -->
+            <h2 class="operation-title">
+              <span class="operation-summary">List metrics</span>
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-path">
+                  <span class="operation-method">GET</span>
+                  <span class="operation-path">/metrics</span>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-description">
+                  <p>Returns a list of all metrics.</p>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy"> </div>
+              <div class="doc-examples"></div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-responses">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">200 OK</div>
+                      <div class="prop-ref">
+                        <span class="json-schema-ref-array">
+                          <a class="json-schema-ref" href="#/definitions/Metric">Metric</a>
+                        </span>
+                      </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>OK</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-inner">
+                    <div class="prop-name">type</div>
+                    <div class="prop-value">
+                      <span class="json-property-type">
+                        <span class="json-schema-ref-array">
+                          <a class="json-schema-ref" href="#/definitions/Metric">Metric</a>
+                        </span>
+                      </span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">401 Unauthorized</div>
+                      <div class="prop-ref">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/Auth Error">Auth Error</a>
+                        </span>
+                      </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>Unauthorized, missing or invalid API-key, see
+                        <a href="#authentication">Authentication</a>
+                      </p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <h5>Response Content-Types:
+                  <span>application/json</span>
+                </h5>
+                <section>
+                  <h5>Response Example
+                    <span>(200 OK)</span>
+                  </h5>
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">[
+  {
+    <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-string">&quot;LPGPFfUjHpnJfMXvqnctt7&quot;</span>,
+    <span class="hljs-attr">&quot;project&quot;</span>: <span class="hljs-string">&quot;ACME&quot;</span>,
+    <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;API&quot;</span>,
+    <span class="hljs-attr">&quot;description&quot;</span>: <span class="hljs-literal">null</span>,
+    <span class="hljs-attr">&quot;created_at&quot;</span>: <span class="hljs-string">&quot;2020-02-19T16:13:58Z&quot;</span>,
+    <span class="hljs-attr">&quot;component&quot;</span>: {
+      <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-string">&quot;GZ7tIAmLacSDW7sHe9Fskl&quot;</span>,
+      <span class="hljs-attr">&quot;project&quot;</span>: <span class="hljs-string">&quot;ACME&quot;</span>,
+      <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;API&quot;</span>,
+      <span class="hljs-attr">&quot;group&quot;</span>: <span class="hljs-string">&quot;System&quot;</span>,
+      <span class="hljs-attr">&quot;created_at&quot;</span>: <span class="hljs-string">&quot;2020-02-07T14:22:03Z&quot;</span>,
+      <span class="hljs-attr">&quot;status&quot;</span>: <span class="hljs-string">&quot;Maintenance mode&quot;</span>,
+      <span class="hljs-attr">&quot;status_color&quot;</span>: <span class="hljs-string">&quot;gray&quot;</span>,
+      <span class="hljs-attr">&quot;description&quot;</span>: <span class="hljs-literal">null</span>,
+      <span class="hljs-attr">&quot;showcased&quot;</span>: <span class="hljs-literal">true</span>
+    },
+    <span class="hljs-attr">&quot;url&quot;</span>: <span class="hljs-string">&quot;https://api.acme.com/health-check&quot;</span>,
+    <span class="hljs-attr">&quot;frequency&quot;</span>: <span class="hljs-string">&quot;5 minutes&quot;</span>,
+    <span class="hljs-attr">&quot;location&quot;</span>: <span class="hljs-string">&quot;US west&quot;</span>,
+    <span class="hljs-attr">&quot;showcased&quot;</span>: <span class="hljs-literal">true</span>
+  }
+]
+</code></pre> </body>
+                  </html>
+                  <!-- </div> -->
+                </section>
+                <section>
+                  <h5>Response Example
+                    <span>(401 Unauthorized)</span>
+                  </h5>
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
+  <span class="hljs-attr">&quot;detail&quot;</span>: <span class="hljs-string">&quot;Authentication credentials were not provided.&quot;</span>
+}
+</code></pre> </body>
+                  </html>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+          </div>
+          <div id="operation--metrics--id--get" class="operation panel" data-traverse-target="operation--metrics--id--get">
+            <!-- <section class="operation-tags row"> -->
+            <!-- <div class="doc-copy"> -->
+            <div class="operation-tags">
+              <a class="label" href="#tag-Metrics">Metrics</a>
+              <!---->
+            </div>
+            <!-- </div> -->
+            <!-- </section> -->
+            <h2 class="operation-title">
+              <span class="operation-summary">Get metric</span>
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-path">
+                  <span class="operation-method">GET</span>
+                  <span class="operation-path">/metrics/{id}</span>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-description">
+                  <p>Returns a single metric.</p>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-request-params">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">id:
+                        <span class="prop-type">
+                          <span class="json-property-type">string</span>
+                          <span class="json-property-range" title="Value limits"></span>
+                        </span>
+                      </div>
+                      <span class="json-property-required"></span>
+                      <div class="prop-subtitle"> in path </div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Unique ID for the metric to retrieve</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples"></div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-responses">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">200 OK</div>
+                      <div class="prop-ref">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/Metric">Metric</a>
+                        </span>
+                      </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>OK</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">401 Unauthorized</div>
+                      <div class="prop-ref">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/Auth Error">Auth Error</a>
+                        </span>
+                      </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>Unauthorized, missing or invalid API-key, see
+                        <a href="#authentication">Authentication</a>
+                      </p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">404 Not Found</div>
+                      <div class="prop-ref">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/Not found">Not found</a>
+                        </span>
+                      </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>Object not found, check the <code>id</code> parameter</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <h5>Response Content-Types:
+                  <span>application/json</span>
+                </h5>
+                <section>
+                  <h5>Response Example
+                    <span>(200 OK)</span>
+                  </h5>
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
+  <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-string">&quot;LPGPFfUjHpnJfMXvqnctt7&quot;</span>,
+  <span class="hljs-attr">&quot;project&quot;</span>: <span class="hljs-string">&quot;ACME&quot;</span>,
+  <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;API&quot;</span>,
+  <span class="hljs-attr">&quot;description&quot;</span>: <span class="hljs-literal">null</span>,
+  <span class="hljs-attr">&quot;created_at&quot;</span>: <span class="hljs-string">&quot;2020-02-19T16:13:58Z&quot;</span>,
+  <span class="hljs-attr">&quot;component&quot;</span>: {
+    <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-string">&quot;GZ7tIAmLacSDW7sHe9Fskl&quot;</span>,
+    <span class="hljs-attr">&quot;project&quot;</span>: <span class="hljs-string">&quot;ACME&quot;</span>,
+    <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;API&quot;</span>,
+    <span class="hljs-attr">&quot;group&quot;</span>: <span class="hljs-string">&quot;System&quot;</span>,
+    <span class="hljs-attr">&quot;created_at&quot;</span>: <span class="hljs-string">&quot;2020-02-07T14:22:03Z&quot;</span>,
+    <span class="hljs-attr">&quot;status&quot;</span>: <span class="hljs-string">&quot;Maintenance mode&quot;</span>,
+    <span class="hljs-attr">&quot;status_color&quot;</span>: <span class="hljs-string">&quot;gray&quot;</span>,
+    <span class="hljs-attr">&quot;description&quot;</span>: <span class="hljs-literal">null</span>,
+    <span class="hljs-attr">&quot;showcased&quot;</span>: <span class="hljs-literal">true</span>
+  },
+  <span class="hljs-attr">&quot;url&quot;</span>: <span class="hljs-string">&quot;https://api.acme.com/health-check&quot;</span>,
+  <span class="hljs-attr">&quot;frequency&quot;</span>: <span class="hljs-string">&quot;5 minutes&quot;</span>,
+  <span class="hljs-attr">&quot;location&quot;</span>: <span class="hljs-string">&quot;US west&quot;</span>,
+  <span class="hljs-attr">&quot;showcased&quot;</span>: <span class="hljs-literal">true</span>
+}
+</code></pre> </body>
+                  </html>
+                  <!-- </div> -->
+                </section>
+                <section>
+                  <h5>Response Example
+                    <span>(401 Unauthorized)</span>
+                  </h5>
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
+  <span class="hljs-attr">&quot;detail&quot;</span>: <span class="hljs-string">&quot;Authentication credentials were not provided.&quot;</span>
+}
+</code></pre> </body>
+                  </html>
+                  <!-- </div> -->
+                </section>
+                <section>
+                  <h5>Response Example
+                    <span>(404 Not Found)</span>
+                  </h5>
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
+  <span class="hljs-attr">&quot;detail&quot;</span>: <span class="hljs-string">&quot;Not found.&quot;</span>
+}
+</code></pre> </body>
+                  </html>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+          </div>
+          <h1 id="tag-Custom-metrics" class="swagger-summary-tag" data-traverse-target="tag-Custom-metrics">Custom metrics</h1>
+          <div class="tag-description doc-row">
+            <div class="doc-copy">
+              <p>Metrics where you can customize the unit and submit your own data.</p>
+            </div>
+          </div>
+          <div id="operation--custom-metrics-data-post" class="operation panel" data-traverse-target="operation--custom-metrics-data-post">
+            <!-- <section class="operation-tags row"> -->
+            <!-- <div class="doc-copy"> -->
+            <div class="operation-tags">
+              <a class="label" href="#tag-Custom-metrics">Custom metrics</a>
+              <!---->
+            </div>
+            <!-- </div> -->
+            <!-- </section> -->
+            <h2 class="operation-title">
+              <span class="operation-summary">Add data points</span>
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-path">
+                  <span class="operation-method">POST</span>
+                  <span class="operation-path">/custom-metrics/data</span>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-description">
+                  <p>Add data points to custom metrics.</p>
+                  <p>Please note the following before submitting data points:</p>
+                  <ul>
+                    <li>
+                      <p>Data points must be in UTC.</p>
+                    </li>
+                    <li>
+                      <p>Data points are cast to minutes, removing the seconds.</p>
+                    </li>
+                    <li>
+                      <p>The response data points have the casted values as they are stored.</p>
+                    </li>
+                    <li>
+                      <p>Data points are updated if the specific minute already exists.</p>
+                    </li>
+                    <li>
+                      <p>Data points older than 30 days are discarded.</p>
+                    </li>
+                  </ul>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-request-body">
+                  <div class="prop-row">
+                    <div class="prop-name">
+                      <div class="swagger-request-model">
+                        <span class="json-schema-ref-array">
+                          <a class="json-schema-ref" href="#/definitions/Custom Metric Data">Custom Metric Data</a>
+                        </span>
+                      </div>
+                    </div>
+                    <div class="prop-value columns small-6">
+                      <!-- <div class="swagger-request-description"> -->
+                      <p>Data object with data point values to add to custom metrics</p>
+                      <!-- </div> -->
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Request Example</h5>
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
+  <span class="hljs-attr">&quot;data&quot;</span>: {
+    <span class="hljs-attr">&quot;29epTBPdfSTBB7LAmTfADw&quot;</span>: [
+      {
+        <span class="hljs-attr">&quot;timestamp&quot;</span>: <span class="hljs-number">1615387895</span>,
+        <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-number">11.6</span>
+      },
+      {
+        <span class="hljs-attr">&quot;timestamp&quot;</span>: <span class="hljs-number">1615387935</span>,
+        <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-number">12.1</span>
+      }
+    ]
+  }
+}
+</code></pre> </body>
+                  </html>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-responses">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">201 Created</div>
+                      <div class="prop-ref">
+                        <span class="json-schema-ref-array">
+                          <a class="json-schema-ref" href="#/definitions/Metric Data Points">Metric Data Points</a>
+                        </span>
+                      </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>Data points have been created</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-inner">
+                    <div class="prop-name">type</div>
+                    <div class="prop-value">
+                      <span class="json-property-type">
+                        <span class="json-schema-ref-array">
+                          <a class="json-schema-ref" href="#/definitions/Metric Data Points">Metric Data Points</a>
+                        </span>
+                      </span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">400 Bad Request</div>
+                      <div class="prop-ref">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/Parse Error">Parse Error</a>
+                        </span>
+                      </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>Malformed request body, make sure the formatting matches the request example</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">401 Unauthorized</div>
+                      <div class="prop-ref">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/Auth Error">Auth Error</a>
+                        </span>
+                      </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>Unauthorized, missing or invalid API-key, see
+                        <a href="#authentication">Authentication</a>
+                      </p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <h5>Response Content-Types:
+                  <span>application/json</span>
+                </h5>
+                <section>
+                  <h5>Response Example
+                    <span>(201 Created)</span>
+                  </h5>
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
+  <span class="hljs-attr">&quot;29epTBPdfSTBB7LAmTfADw&quot;</span>: [
+    {
+      <span class="hljs-attr">&quot;timestamp&quot;</span>: <span class="hljs-number">1615387860</span>,
+      <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-number">11.6</span>
+    },
+    {
+      <span class="hljs-attr">&quot;timestamp&quot;</span>: <span class="hljs-number">1615387920</span>,
+      <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-number">12.1</span>
+    }
+  ]
+}
+</code></pre> </body>
+                  </html>
+                  <!-- </div> -->
+                </section>
+                <section>
+                  <h5>Response Example
+                    <span>(400 Bad Request)</span>
+                  </h5>
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
+  <span class="hljs-attr">&quot;detail&quot;</span>: <span class="hljs-string">&quot;Malformed request.&quot;</span>
+}
+</code></pre> </body>
+                  </html>
+                  <!-- </div> -->
+                </section>
+                <section>
+                  <h5>Response Example
+                    <span>(401 Unauthorized)</span>
+                  </h5>
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
+  <span class="hljs-attr">&quot;detail&quot;</span>: <span class="hljs-string">&quot;Authentication credentials were not provided.&quot;</span>
+}
+</code></pre> </body>
+                  </html>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+          </div>
+          <div id="operation--custom-metrics-get" class="operation panel" data-traverse-target="operation--custom-metrics-get">
+            <!-- <section class="operation-tags row"> -->
+            <!-- <div class="doc-copy"> -->
+            <div class="operation-tags">
+              <a class="label" href="#tag-Custom-metrics">Custom metrics</a>
+              <!---->
+            </div>
+            <!-- </div> -->
+            <!-- </section> -->
+            <h2 class="operation-title">
+              <span class="operation-summary">List custom metrics</span>
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-path">
+                  <span class="operation-method">GET</span>
+                  <span class="operation-path">/custom-metrics</span>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-description">
+                  <p>Returns a list of all custom metrics.</p>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy"> </div>
+              <div class="doc-examples"></div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-responses">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">200 OK</div>
+                      <div class="prop-ref">
+                        <span class="json-schema-ref-array">
+                          <a class="json-schema-ref" href="#/definitions/Custom Metric">Custom Metric</a>
+                        </span>
+                      </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>OK</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-inner">
+                    <div class="prop-name">type</div>
+                    <div class="prop-value">
+                      <span class="json-property-type">
+                        <span class="json-schema-ref-array">
+                          <a class="json-schema-ref" href="#/definitions/Custom Metric">Custom Metric</a>
+                        </span>
+                      </span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">401 Unauthorized</div>
+                      <div class="prop-ref">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/Auth Error">Auth Error</a>
+                        </span>
+                      </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>Unauthorized, missing or invalid API-key, see
+                        <a href="#authentication">Authentication</a>
+                      </p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <h5>Response Content-Types:
+                  <span>application/json</span>
+                </h5>
+                <section>
+                  <h5>Response Example
+                    <span>(200 OK)</span>
+                  </h5>
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">[
+  {
+    <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-string">&quot;29epTBPdfSTBB7LAmTfADw&quot;</span>,
+    <span class="hljs-attr">&quot;project&quot;</span>: <span class="hljs-string">&quot;ACME&quot;</span>,
+    <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;Errors&quot;</span>,
+    <span class="hljs-attr">&quot;description&quot;</span>: <span class="hljs-literal">null</span>,
+    <span class="hljs-attr">&quot;created_at&quot;</span>: <span class="hljs-string">&quot;2020-02-03T08:16:39Z&quot;</span>,
+    <span class="hljs-attr">&quot;component&quot;</span>: {
+      <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-string">&quot;GZ7tIAmLacSDW7sHe9Fskl&quot;</span>,
+      <span class="hljs-attr">&quot;project&quot;</span>: <span class="hljs-string">&quot;ACME&quot;</span>,
+      <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;API&quot;</span>,
+      <span class="hljs-attr">&quot;group&quot;</span>: <span class="hljs-string">&quot;System&quot;</span>,
+      <span class="hljs-attr">&quot;created_at&quot;</span>: <span class="hljs-string">&quot;2020-02-07T14:22:03Z&quot;</span>,
+      <span class="hljs-attr">&quot;status&quot;</span>: <span class="hljs-string">&quot;Maintenance mode&quot;</span>,
+      <span class="hljs-attr">&quot;status_color&quot;</span>: <span class="hljs-string">&quot;gray&quot;</span>,
+      <span class="hljs-attr">&quot;description&quot;</span>: <span class="hljs-literal">null</span>,
+      <span class="hljs-attr">&quot;showcased&quot;</span>: <span class="hljs-literal">true</span>
+    },
+    <span class="hljs-attr">&quot;suffix&quot;</span>: <span class="hljs-string">&quot;per minutes&quot;</span>,
+    <span class="hljs-attr">&quot;rollup&quot;</span>: <span class="hljs-string">&quot;Max&quot;</span>,
+    <span class="hljs-attr">&quot;showcased&quot;</span>: <span class="hljs-literal">true</span>
+  }
+]
+</code></pre> </body>
+                  </html>
+                  <!-- </div> -->
+                </section>
+                <section>
+                  <h5>Response Example
+                    <span>(401 Unauthorized)</span>
+                  </h5>
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
+  <span class="hljs-attr">&quot;detail&quot;</span>: <span class="hljs-string">&quot;Authentication credentials were not provided.&quot;</span>
+}
+</code></pre> </body>
+                  </html>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+          </div>
+          <div id="operation--custom-metrics--id--get" class="operation panel" data-traverse-target="operation--custom-metrics--id--get">
+            <!-- <section class="operation-tags row"> -->
+            <!-- <div class="doc-copy"> -->
+            <div class="operation-tags">
+              <a class="label" href="#tag-Custom-metrics">Custom metrics</a>
+              <!---->
+            </div>
+            <!-- </div> -->
+            <!-- </section> -->
+            <h2 class="operation-title">
+              <span class="operation-summary">Get custom metric</span>
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-path">
+                  <span class="operation-method">GET</span>
+                  <span class="operation-path">/custom-metrics/{id}</span>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-description">
+                  <p>Returns a single custom metric.</p>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-request-params">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">id:
+                        <span class="prop-type">
+                          <span class="json-property-type">string</span>
+                          <span class="json-property-range" title="Value limits"></span>
+                        </span>
+                      </div>
+                      <span class="json-property-required"></span>
+                      <div class="prop-subtitle"> in path </div>
+                    </div>
+                    <div class="prop-value">
+                      <p>Unique ID for the custom metric to retrieve</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples"></div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-responses">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">200 OK</div>
+                      <div class="prop-ref">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/Custom Metric">Custom Metric</a>
+                        </span>
+                      </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>OK</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">401 Unauthorized</div>
+                      <div class="prop-ref">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/Auth Error">Auth Error</a>
+                        </span>
+                      </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>Unauthorized, missing or invalid API-key, see
+                        <a href="#authentication">Authentication</a>
+                      </p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">404 Not Found</div>
+                      <div class="prop-ref">
+                        <span class="">
+                          <a class="json-schema-ref" href="#/definitions/Not found">Not found</a>
+                        </span>
+                      </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>Object not found, check the <code>id</code> parameter</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <h5>Response Content-Types:
+                  <span>application/json</span>
+                </h5>
+                <section>
+                  <h5>Response Example
+                    <span>(200 OK)</span>
+                  </h5>
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
+  <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-string">&quot;29epTBPdfSTBB7LAmTfADw&quot;</span>,
+  <span class="hljs-attr">&quot;project&quot;</span>: <span class="hljs-string">&quot;ACME&quot;</span>,
+  <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;Errors&quot;</span>,
+  <span class="hljs-attr">&quot;description&quot;</span>: <span class="hljs-literal">null</span>,
+  <span class="hljs-attr">&quot;created_at&quot;</span>: <span class="hljs-string">&quot;2020-02-03T08:16:39Z&quot;</span>,
+  <span class="hljs-attr">&quot;component&quot;</span>: {
+    <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-string">&quot;GZ7tIAmLacSDW7sHe9Fskl&quot;</span>,
+    <span class="hljs-attr">&quot;project&quot;</span>: <span class="hljs-string">&quot;ACME&quot;</span>,
+    <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;API&quot;</span>,
+    <span class="hljs-attr">&quot;group&quot;</span>: <span class="hljs-string">&quot;System&quot;</span>,
+    <span class="hljs-attr">&quot;created_at&quot;</span>: <span class="hljs-string">&quot;2020-02-07T14:22:03Z&quot;</span>,
+    <span class="hljs-attr">&quot;status&quot;</span>: <span class="hljs-string">&quot;Maintenance mode&quot;</span>,
+    <span class="hljs-attr">&quot;status_color&quot;</span>: <span class="hljs-string">&quot;gray&quot;</span>,
+    <span class="hljs-attr">&quot;description&quot;</span>: <span class="hljs-literal">null</span>,
+    <span class="hljs-attr">&quot;showcased&quot;</span>: <span class="hljs-literal">true</span>
+  },
+  <span class="hljs-attr">&quot;suffix&quot;</span>: <span class="hljs-string">&quot;per minutes&quot;</span>,
+  <span class="hljs-attr">&quot;rollup&quot;</span>: <span class="hljs-string">&quot;Max&quot;</span>,
+  <span class="hljs-attr">&quot;showcased&quot;</span>: <span class="hljs-literal">true</span>
+}
+</code></pre> </body>
+                  </html>
+                  <!-- </div> -->
+                </section>
+                <section>
+                  <h5>Response Example
+                    <span>(401 Unauthorized)</span>
+                  </h5>
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
+  <span class="hljs-attr">&quot;detail&quot;</span>: <span class="hljs-string">&quot;Authentication credentials were not provided.&quot;</span>
+}
+</code></pre> </body>
+                  </html>
+                  <!-- </div> -->
+                </section>
+                <section>
+                  <h5>Response Example
+                    <span>(404 Not Found)</span>
+                  </h5>
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
+  <span class="hljs-attr">&quot;detail&quot;</span>: <span class="hljs-string">&quot;Not found.&quot;</span>
+}
+</code></pre> </body>
+                  </html>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+          </div>
+          <h1>Schema Definitions</h1>
+          <div id="definition-System-Status" class="definition panel" data-traverse-target="definition-System-Status">
+            <h2 class="panel-title">
+              <a name="/definitions/System Status"></a>System Status: object
+              <!-- <span class="json-property-type"><span class="json-property-type">object</span>
+              <span class="json-property-range" title="Value limits"></span>
+              
+              
+              </span> -->
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="json-schema-properties">
+                  <dl>
+                    <dt data-property-name="status" class="has-description">
+                      <span class="json-property-name">status:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-enum" title="Possible values">
+                        <span class="json-property-enum-item">All systems operational</span>,
+                        <span class="json-property-enum-item">Some systems have issues</span>,
+                        <span class="json-property-enum-item">All systems down</span>,
+                        <span class="json-property-enum-item">Under maintenance</span>
+                      </span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>Status phrase as shown on the status page.</p>
+                    </dd>
+                    <dt data-property-name="status_color" class="has-description">
+                      <span class="json-property-name">status_color:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-enum" title="Possible values">
+                        <span class="json-property-enum-item">green</span>,
+                        <span class="json-property-enum-item">orange</span>,
+                        <span class="json-property-enum-item">red</span>,
+                        <span class="json-property-enum-item">gray</span>
+                      </span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>Human readable color name.</p>
+                    </dd>
+                  </dl>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Example</h5>
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
+  <span class="hljs-attr">&quot;status&quot;</span>: <span class="hljs-string">&quot;All systems operational&quot;</span>,
+  <span class="hljs-attr">&quot;status_color&quot;</span>: <span class="hljs-string">&quot;green&quot;</span>
+}
+</code></pre> </body>
+                  </html>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+          </div>
+          <div id="definition-Live" class="definition panel" data-traverse-target="definition-Live">
+            <h2 class="panel-title">
+              <a name="/definitions/Live"></a>Live: object
+              <!-- <span class="json-property-type"><span class="json-property-type">object</span>
+              <span class="json-property-range" title="Value limits"></span>
+              
+              
+              </span> -->
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="json-schema-properties">
+                  <dl>
+                    <dt data-property-name="project" class="has-description">
+                      <span class="json-property-name">project:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>Project name.</p>
+                    </dd>
+                    <dt data-property-name="url" class="has-description">
+                      <span class="json-property-name">url:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>Status page URL.</p>
+                    </dd>
+                    <dt data-property-name="incidents" class="has-description">
+                      <span class="json-property-name">incidents:</span>
+                      <span class="json-property-type">
+                        <span class="json-schema-ref-array">
+                          <a class="json-schema-ref" href="#/definitions/Incident">Incident</a>
+                        </span>
+                      </span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>A list of ongoing incidents.</p>
+                    </dd>
+                    <dt class="json-inner-schema">
+                      <section class="json-schema-array-items">
+                        <span class="json-property-type">
+                          <span class="">
+                            <a class="json-schema-ref" href="#/definitions/Incident">Incident</a>
+                          </span>
+                        </span>
+                        <span class="json-property-range" title="Value limits"></span>
+                        <div class="json-inner-schema"> </div>
+                      </section>
+                    </dt>
+                    <dt data-property-name="maintenance" class="has-description">
+                      <span class="json-property-name">maintenance:</span>
+                      <span class="json-property-type">
+                        <span class="json-schema-ref-array">
+                          <a class="json-schema-ref" href="#/definitions/Maintenance">Maintenance</a>
+                        </span>
+                      </span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>A list of maintenance currently in progress.</p>
+                    </dd>
+                    <dt class="json-inner-schema">
+                      <section class="json-schema-array-items">
+                        <span class="json-property-type">
+                          <span class="">
+                            <a class="json-schema-ref" href="#/definitions/Maintenance">Maintenance</a>
+                          </span>
+                        </span>
+                        <span class="json-property-range" title="Value limits"></span>
+                        <div class="json-inner-schema"> </div>
+                      </section>
+                    </dt>
+                  </dl>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Example</h5>
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
+  <span class="hljs-attr">&quot;project&quot;</span>: <span class="hljs-string">&quot;ACME&quot;</span>,
+  <span class="hljs-attr">&quot;url&quot;</span>: <span class="hljs-string">&quot;https://acme.pingpong.host&quot;</span>,
+  <span class="hljs-attr">&quot;incidents&quot;</span>: [],
+  <span class="hljs-attr">&quot;maintenance&quot;</span>: [
+    {
+      <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-string">&quot;k9gVLLPoNgbPA72HQKvy2b&quot;</span>,
+      <span class="hljs-attr">&quot;project&quot;</span>: <span class="hljs-string">&quot;ACME&quot;</span>,
+      <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;Database migration&quot;</span>,
+      <span class="hljs-attr">&quot;created_at&quot;</span>: <span class="hljs-string">&quot;2020-02-03T12:15:58Z&quot;</span>,
+      <span class="hljs-attr">&quot;status&quot;</span>: <span class="hljs-string">&quot;In progress&quot;</span>,
+      <span class="hljs-attr">&quot;affected_components&quot;</span>: [
+        {
+          <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-string">&quot;GZ7tIAmLacSDW7sHe9Fskl&quot;</span>,
+          <span class="hljs-attr">&quot;project&quot;</span>: <span class="hljs-string">&quot;ACME&quot;</span>,
+          <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;API&quot;</span>,
+          <span class="hljs-attr">&quot;group&quot;</span>: <span class="hljs-string">&quot;System&quot;</span>,
+          <span class="hljs-attr">&quot;created_at&quot;</span>: <span class="hljs-string">&quot;2020-02-07T14:22:03Z&quot;</span>,
+          <span class="hljs-attr">&quot;status&quot;</span>: <span class="hljs-string">&quot;Maintenance mode&quot;</span>,
+          <span class="hljs-attr">&quot;status_color&quot;</span>: <span class="hljs-string">&quot;gray&quot;</span>,
+          <span class="hljs-attr">&quot;description&quot;</span>: <span class="hljs-literal">null</span>,
+          <span class="hljs-attr">&quot;showcased&quot;</span>: <span class="hljs-literal">true</span>
+        }
+      ],
+      <span class="hljs-attr">&quot;reported_by&quot;</span>: <span class="hljs-string">&quot;Donald Duck&quot;</span>,
+      <span class="hljs-attr">&quot;scheduled_for&quot;</span>: <span class="hljs-string">&quot;2020-02-10T22:00:00Z&quot;</span>,
+      <span class="hljs-attr">&quot;ends_at&quot;</span>: <span class="hljs-string">&quot;2020-02-10T23:00:00Z&quot;</span>,
+      <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;Upgrading version of &lt;b&gt;main database&lt;/b&gt; from version 9.0 to &lt;strikethrough&gt;10.0&lt;/strikethrough&gt; 10.2.&quot;</span>
+    }
+  ]
+}
+</code></pre> </body>
+                  </html>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+          </div>
+          <div id="definition-Component" class="definition panel" data-traverse-target="definition-Component">
+            <h2 class="panel-title">
+              <a name="/definitions/Component"></a>Component: object
+              <!-- <span class="json-property-type"><span class="json-property-type">object</span>
+              <span class="json-property-range" title="Value limits"></span>
+              
+              
+              </span> -->
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="json-schema-properties">
+                  <dl>
+                    <dt data-property-name="id" class="has-description">
+                      <span class="json-property-name">id:</span>
+                      <span class="json-property-type">uuid</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                      <span class="json-property-range" title="String length limits"> (up to 22 chars) </span>
+                    </dt>
+                    <dd>
+                      <p>Unique identifier.</p>
+                    </dd>
+                    <dt data-property-name="project" class="has-description">
+                      <span class="json-property-name">project:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                      <span class="json-property-range" title="String length limits"> (up to 50 chars) </span>
+                    </dt>
+                    <dd>
+                      <p>Project name.</p>
+                    </dd>
+                    <dt data-property-name="name" class="has-description">
+                      <span class="json-property-name">name:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                      <span class="json-property-range" title="String length limits"> (up to 50 chars) </span>
+                    </dt>
+                    <dd>
+                      <p>Component name.</p>
+                    </dd>
+                    <dt data-property-name="group" class="has-description">
+                      <span class="json-property-name">group:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>Name of the group it belongs to, or null if it doesn&#39;t belong to a group.</p>
+                    </dd>
+                    <dt data-property-name="created_at" class="has-description">
+                      <span class="json-property-name">created_at:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-format">(date-time)</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>Datetime when component was created in UTC.</p>
+                    </dd>
+                    <dt data-property-name="status" class="has-description">
+                      <span class="json-property-name">status:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-enum" title="Possible values">
+                        <span class="json-property-enum-item">Unknown</span>,
+                        <span class="json-property-enum-item">Operational</span>,
+                        <span class="json-property-enum-item">Minor issues</span>,
+                        <span class="json-property-enum-item">Major issues</span>,
+                        <span class="json-property-enum-item">Critical state</span>,
+                        <span class="json-property-enum-item">Maintenance mode</span>,
+                        <span class="json-property-enum-item">Unavailable</span>
+                      </span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>Current status as shown on the status page.</p>
+                    </dd>
+                    <dt data-property-name="status_color" class="has-description">
+                      <span class="json-property-name">status_color:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-enum" title="Possible values">
+                        <span class="json-property-enum-item">green</span>,
+                        <span class="json-property-enum-item">orange</span>,
+                        <span class="json-property-enum-item">red</span>
+                      </span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>Human readable color name.</p>
+                    </dd>
+                    <dt data-property-name="description" class="has-description">
+                      <span class="json-property-name">description:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                      <span class="json-property-range" title="String length limits"> (up to 255 chars) </span>
+                    </dt>
+                    <dd>
+                      <p>Short description of the component.</p>
+                    </dd>
+                    <dt data-property-name="showcased" class="has-description">
+                      <span class="json-property-name">showcased:</span>
+                      <span class="json-property-type">boolean</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>Whether it is shown on the status page.</p>
+                    </dd>
+                  </dl>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Example</h5>
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
+  <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-string">&quot;GZ7tIAmLacSDW7sHe9Fskl&quot;</span>,
+  <span class="hljs-attr">&quot;project&quot;</span>: <span class="hljs-string">&quot;ACME&quot;</span>,
+  <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;API&quot;</span>,
+  <span class="hljs-attr">&quot;group&quot;</span>: <span class="hljs-string">&quot;System&quot;</span>,
+  <span class="hljs-attr">&quot;created_at&quot;</span>: <span class="hljs-string">&quot;2020-02-07T14:22:03Z&quot;</span>,
+  <span class="hljs-attr">&quot;status&quot;</span>: <span class="hljs-string">&quot;Operational&quot;</span>,
+  <span class="hljs-attr">&quot;status_color&quot;</span>: <span class="hljs-string">&quot;green&quot;</span>,
+  <span class="hljs-attr">&quot;description&quot;</span>: <span class="hljs-literal">null</span>,
+  <span class="hljs-attr">&quot;showcased&quot;</span>: <span class="hljs-literal">true</span>
+}
+</code></pre> </body>
+                  </html>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+          </div>
+          <div id="definition-Incident" class="definition panel" data-traverse-target="definition-Incident">
+            <h2 class="panel-title">
+              <a name="/definitions/Incident"></a>Incident: object
+              <!-- <span class="json-property-type"><span class="json-property-type">object</span>
+              <span class="json-property-range" title="Value limits"></span>
+              
+              
+              </span> -->
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="json-schema-properties">
+                  <dl>
+                    <dt data-property-name="id" class="has-description">
+                      <span class="json-property-name">id:</span>
+                      <span class="json-property-type">uuid</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                      <span class="json-property-range" title="String length limits"> (up to 22 chars) </span>
+                    </dt>
+                    <dd>
+                      <p>Unique identifier.</p>
+                    </dd>
+                    <dt data-property-name="project" class="has-description">
+                      <span class="json-property-name">project:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                      <span class="json-property-range" title="String length limits"> (up to 50 chars) </span>
+                    </dt>
+                    <dd>
+                      <p>Project name.</p>
+                    </dd>
+                    <dt data-property-name="name" class="has-description">
+                      <span class="json-property-name">name:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                      <span class="json-property-range" title="String length limits"> (up to 50 chars) </span>
+                    </dt>
+                    <dd>
+                      <p>Incident name.</p>
+                    </dd>
+                    <dt data-property-name="created_at" class="has-description">
+                      <span class="json-property-name">created_at:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-format">(date-time)</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>Datetime when event was created in UTC.</p>
+                    </dd>
+                    <dt data-property-name="status" class="has-description">
+                      <span class="json-property-name">status:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-enum" title="Possible values">
+                        <span class="json-property-enum-item">Investigating</span>,
+                        <span class="json-property-enum-item">Identified</span>,
+                        <span class="json-property-enum-item">Watching</span>,
+                        <span class="json-property-enum-item">Verifying</span>,
+                        <span class="json-property-enum-item">Fixed</span>
+                      </span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>Current event status.</p>
+                    </dd>
+                    <dt data-property-name="affected_components" class="has-description">
+                      <span class="json-property-name">affected_components:</span>
+                      <span class="json-property-type">
+                        <span class="json-schema-ref-array">
+                          <a class="json-schema-ref" href="#/definitions/Component">Component</a>
+                        </span>
+                      </span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>A list of components affected by this event.</p>
+                    </dd>
+                    <dt class="json-inner-schema">
+                      <section class="json-schema-array-items">
+                        <span class="json-property-type">
+                          <span class="">
+                            <a class="json-schema-ref" href="#/definitions/Component">Component</a>
+                          </span>
+                        </span>
+                        <span class="json-property-range" title="Value limits"></span>
+                        <div class="json-inner-schema"> </div>
+                      </section>
+                    </dt>
+                    <dt data-property-name="reported_by" class="has-description">
+                      <span class="json-property-name">reported_by:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>Name of the person in your team who reported the event.</p>
+                    </dd>
+                    <dt data-property-name="occurred_at" class="has-description">
+                      <span class="json-property-name">occurred_at:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-format">(date-time)</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>When event started in UTC.</p>
+                    </dd>
+                    <dt data-property-name="message" class="has-description">
+                      <span class="json-property-name">message:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-format">(HTML)</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>What will happen during the maintenance.</p>
+                    </dd>
+                    <dt data-property-name="updates">
+                      <span class="json-property-name">updates:</span>
+                      <span class="json-property-type">object[]</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dt class="json-inner-schema">
+                      <section class="json-schema-array-items">
+                        <span class="json-property-type">object</span>
+                        <span class="json-property-range" title="Value limits"></span>
+                        <div class="json-inner-schema">
+                          <section class="json-schema-properties">
+                            <dl>
+                              <dt data-property-name="id" class="has-description">
+                                <span class="json-property-name">id:</span>
+                                <span class="json-property-type">uuid</span>
+                                <span class="json-property-range" title="Value limits"></span>
+                                <span class="json-property-range" title="String length limits"> (up to 22 chars) </span>
+                              </dt>
+                              <dd>
+                                <p>Unique identifier.</p>
+                              </dd>
+                              <dt data-property-name="created_at" class="has-description">
+                                <span class="json-property-name">created_at:</span>
+                                <span class="json-property-type">string</span>
+                                <span class="json-property-format">(date-time)</span>
+                                <span class="json-property-range" title="Value limits"></span>
+                              </dt>
+                              <dd>
+                                <p>Datetime when event was created in UTC.</p>
+                              </dd>
+                              <dt data-property-name="status" class="has-description">
+                                <span class="json-property-name">status:</span>
+                                <span class="json-property-type">string</span>
+                                <span class="json-property-enum" title="Possible values">
+                                  <span class="json-property-enum-item">Investigating</span>,
+                                  <span class="json-property-enum-item">Identified</span>,
+                                  <span class="json-property-enum-item">Watching</span>,
+                                  <span class="json-property-enum-item">Verifying</span>,
+                                  <span class="json-property-enum-item">Fixed</span>
+                                </span>
+                                <span class="json-property-range" title="Value limits"></span>
+                              </dt>
+                              <dd>
+                                <p>Current event status.</p>
+                              </dd>
+                              <dt data-property-name="reported_by" class="has-description">
+                                <span class="json-property-name">reported_by:</span>
+                                <span class="json-property-type">string</span>
+                                <span class="json-property-range" title="Value limits"></span>
+                              </dt>
+                              <dd>
+                                <p>Name of the person in your team who reported the event.</p>
+                              </dd>
+                              <dt data-property-name="message" class="has-description">
+                                <span class="json-property-name">message:</span>
+                                <span class="json-property-type">string</span>
+                                <span class="json-property-format">(HTML)</span>
+                                <span class="json-property-range" title="Value limits"></span>
+                              </dt>
+                              <dd>
+                                <p>What will happen during the maintenance.</p>
+                              </dd>
+                            </dl>
+                          </section>
+                        </div>
+                      </section>
+                    </dt>
+                  </dl>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Example</h5>
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
+  <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-string">&quot;LaPtdb2hXX3447YH7XYrt9&quot;</span>,
+  <span class="hljs-attr">&quot;project&quot;</span>: <span class="hljs-string">&quot;ACME&quot;</span>,
+  <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;Database replica connection failure&quot;</span>,
+  <span class="hljs-attr">&quot;created_at&quot;</span>: <span class="hljs-string">&quot;2020-02-03T12:15:58Z&quot;</span>,
+  <span class="hljs-attr">&quot;status&quot;</span>: <span class="hljs-string">&quot;Verifying&quot;</span>,
+  <span class="hljs-attr">&quot;affected_components&quot;</span>: [
+    {
+      <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-string">&quot;GZ7tIAmLacSDW7sHe9Fskl&quot;</span>,
+      <span class="hljs-attr">&quot;project&quot;</span>: <span class="hljs-string">&quot;ACME&quot;</span>,
+      <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;API&quot;</span>,
+      <span class="hljs-attr">&quot;group&quot;</span>: <span class="hljs-string">&quot;System&quot;</span>,
+      <span class="hljs-attr">&quot;created_at&quot;</span>: <span class="hljs-string">&quot;2020-02-07T14:22:03Z&quot;</span>,
+      <span class="hljs-attr">&quot;status&quot;</span>: <span class="hljs-string">&quot;Critial state&quot;</span>,
+      <span class="hljs-attr">&quot;status_color&quot;</span>: <span class="hljs-string">&quot;red&quot;</span>,
+      <span class="hljs-attr">&quot;description&quot;</span>: <span class="hljs-literal">null</span>,
+      <span class="hljs-attr">&quot;showcased&quot;</span>: <span class="hljs-literal">true</span>
+    }
+  ],
+  <span class="hljs-attr">&quot;reported_by&quot;</span>: <span class="hljs-string">&quot;Donald Duck&quot;</span>,
+  <span class="hljs-attr">&quot;occurred_at&quot;</span>: <span class="hljs-string">&quot;2020-03-18T09:02:24Z&quot;</span>,
+  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;&lt;b&gt;Summary&lt;/b&gt;&lt;br&gt;API can not connect to the database replica.&quot;</span>,
+  <span class="hljs-attr">&quot;updates&quot;</span>: [
+    {
+      <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-string">&quot;LlPtdb4hXX3447YH7XYrt9&quot;</span>,
+      <span class="hljs-attr">&quot;created_at&quot;</span>: <span class="hljs-string">&quot;2020-03-18T09:02:39Z&quot;</span>,
+      <span class="hljs-attr">&quot;reported_by&quot;</span>: <span class="hljs-string">&quot;Huey&quot;</span>,
+      <span class="hljs-attr">&quot;status&quot;</span>: <span class="hljs-string">&quot;Investigating&quot;</span>,
+      <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;Our devs are looking into the issue.&quot;</span>
+    },
+    {
+      <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-string">&quot;GkSMzCWZfLZzam9AK4oGKi&quot;</span>,
+      <span class="hljs-attr">&quot;created_at&quot;</span>: <span class="hljs-string">&quot;2020-03-18T09:02:56Z&quot;</span>,
+      <span class="hljs-attr">&quot;reported_by&quot;</span>: <span class="hljs-string">&quot;Dewey&quot;</span>,
+      <span class="hljs-attr">&quot;status&quot;</span>: <span class="hljs-string">&quot;Identified&quot;</span>,
+      <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;Our devs have found the issue and researching a solution.&quot;</span>
+    },
+    {
+      <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-string">&quot;J7eS9zJpNbVrXb2FxVuUik&quot;</span>,
+      <span class="hljs-attr">&quot;created_at&quot;</span>: <span class="hljs-string">&quot;2020-03-18T09:03:31Z&quot;</span>,
+      <span class="hljs-attr">&quot;reported_by&quot;</span>: <span class="hljs-string">&quot;Louie&quot;</span>,
+      <span class="hljs-attr">&quot;status&quot;</span>: <span class="hljs-string">&quot;Verifying&quot;</span>,
+      <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;A fix has been deployed and our devs are verifying the solution.&quot;</span>
+    }
+  ]
+}
+</code></pre> </body>
+                  </html>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+          </div>
+          <div id="definition-Maintenance" class="definition panel" data-traverse-target="definition-Maintenance">
+            <h2 class="panel-title">
+              <a name="/definitions/Maintenance"></a>Maintenance: object
+              <!-- <span class="json-property-type"><span class="json-property-type">object</span>
+              <span class="json-property-range" title="Value limits"></span>
+              
+              
+              </span> -->
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="json-schema-properties">
+                  <dl>
+                    <dt data-property-name="id" class="has-description">
+                      <span class="json-property-name">id:</span>
+                      <span class="json-property-type">uuid</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                      <span class="json-property-range" title="String length limits"> (up to 22 chars) </span>
+                    </dt>
+                    <dd>
+                      <p>Unique identifier.</p>
+                    </dd>
+                    <dt data-property-name="project" class="has-description">
+                      <span class="json-property-name">project:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                      <span class="json-property-range" title="String length limits"> (up to 50 chars) </span>
+                    </dt>
+                    <dd>
+                      <p>Project name.</p>
+                    </dd>
+                    <dt data-property-name="name" class="has-description">
+                      <span class="json-property-name">name:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                      <span class="json-property-range" title="String length limits"> (up to 50 chars) </span>
+                    </dt>
+                    <dd>
+                      <p>Maintenance name.</p>
+                    </dd>
+                    <dt data-property-name="created_at" class="has-description">
+                      <span class="json-property-name">created_at:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-format">(date-time)</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>Datetime when event was created in UTC.</p>
+                    </dd>
+                    <dt data-property-name="status" class="has-description">
+                      <span class="json-property-name">status:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-enum" title="Possible values">
+                        <span class="json-property-enum-item">Upcoming</span>,
+                        <span class="json-property-enum-item">In progress</span>,
+                        <span class="json-property-enum-item">Complete</span>
+                      </span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>Current event status.</p>
+                    </dd>
+                    <dt data-property-name="affected_components" class="has-description">
+                      <span class="json-property-name">affected_components:</span>
+                      <span class="json-property-type">
+                        <span class="json-schema-ref-array">
+                          <a class="json-schema-ref" href="#/definitions/Component">Component</a>
+                        </span>
+                      </span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>A list of components affected by this event.</p>
+                    </dd>
+                    <dt class="json-inner-schema">
+                      <section class="json-schema-array-items">
+                        <span class="json-property-type">
+                          <span class="">
+                            <a class="json-schema-ref" href="#/definitions/Component">Component</a>
+                          </span>
+                        </span>
+                        <span class="json-property-range" title="Value limits"></span>
+                        <div class="json-inner-schema"> </div>
+                      </section>
+                    </dt>
+                    <dt data-property-name="reported_by" class="has-description">
+                      <span class="json-property-name">reported_by:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>Name of the person in your team who reported the event.</p>
+                    </dd>
+                    <dt data-property-name="scheduled_for" class="has-description">
+                      <span class="json-property-name">scheduled_for:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-format">(date-time)</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>When event will occur in UTC.</p>
+                    </dd>
+                    <dt data-property-name="ends_at" class="has-description">
+                      <span class="json-property-name">ends_at:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-format">(date-time)</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>When event will end in UTC.</p>
+                    </dd>
+                    <dt data-property-name="message" class="has-description">
+                      <span class="json-property-name">message:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-format">(HTML)</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>What will happen during the maintenance.</p>
+                    </dd>
+                  </dl>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Example</h5>
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
+  <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-string">&quot;k9gVLLPoNgbPA72HQKvy2b&quot;</span>,
+  <span class="hljs-attr">&quot;project&quot;</span>: <span class="hljs-string">&quot;ACME&quot;</span>,
+  <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;Database migration&quot;</span>,
+  <span class="hljs-attr">&quot;created_at&quot;</span>: <span class="hljs-string">&quot;2020-02-03T12:15:58Z&quot;</span>,
+  <span class="hljs-attr">&quot;status&quot;</span>: <span class="hljs-string">&quot;In progress&quot;</span>,
+  <span class="hljs-attr">&quot;affected_components&quot;</span>: [
+    {
+      <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-string">&quot;GZ7tIAmLacSDW7sHe9Fskl&quot;</span>,
+      <span class="hljs-attr">&quot;project&quot;</span>: <span class="hljs-string">&quot;ACME&quot;</span>,
+      <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;API&quot;</span>,
+      <span class="hljs-attr">&quot;group&quot;</span>: <span class="hljs-string">&quot;System&quot;</span>,
+      <span class="hljs-attr">&quot;created_at&quot;</span>: <span class="hljs-string">&quot;2020-02-07T14:22:03Z&quot;</span>,
+      <span class="hljs-attr">&quot;status&quot;</span>: <span class="hljs-string">&quot;Maintenance mode&quot;</span>,
+      <span class="hljs-attr">&quot;status_color&quot;</span>: <span class="hljs-string">&quot;gray&quot;</span>,
+      <span class="hljs-attr">&quot;description&quot;</span>: <span class="hljs-literal">null</span>,
+      <span class="hljs-attr">&quot;showcased&quot;</span>: <span class="hljs-literal">true</span>
+    }
+  ],
+  <span class="hljs-attr">&quot;reported_by&quot;</span>: <span class="hljs-string">&quot;Donald Duck&quot;</span>,
+  <span class="hljs-attr">&quot;scheduled_for&quot;</span>: <span class="hljs-string">&quot;2020-02-10T22:00:00Z&quot;</span>,
+  <span class="hljs-attr">&quot;ends_at&quot;</span>: <span class="hljs-string">&quot;2020-02-10T23:00:00Z&quot;</span>,
+  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;Upgrading version of &lt;b&gt;main database&lt;/b&gt; from version 9.0 to &lt;strikethrough&gt;10.0&lt;/strikethrough&gt; 10.2.&quot;</span>
+}
+</code></pre> </body>
+                  </html>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+          </div>
+          <div id="definition-Metric" class="definition panel" data-traverse-target="definition-Metric">
+            <h2 class="panel-title">
+              <a name="/definitions/Metric"></a>Metric: object
+              <!-- <span class="json-property-type"><span class="json-property-type">object</span>
+              <span class="json-property-range" title="Value limits"></span>
+              
+              
+              </span> -->
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="json-schema-properties">
+                  <dl>
+                    <dt data-property-name="id" class="has-description">
+                      <span class="json-property-name">id:</span>
+                      <span class="json-property-type">uuid</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                      <span class="json-property-range" title="String length limits"> (up to 22 chars) </span>
+                    </dt>
+                    <dd>
+                      <p>Unique identifier.</p>
+                    </dd>
+                    <dt data-property-name="project" class="has-description">
+                      <span class="json-property-name">project:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                      <span class="json-property-range" title="String length limits"> (up to 50 chars) </span>
+                    </dt>
+                    <dd>
+                      <p>Project name.</p>
+                    </dd>
+                    <dt data-property-name="name" class="has-description">
+                      <span class="json-property-name">name:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                      <span class="json-property-range" title="String length limits"> (up to 50 chars) </span>
+                    </dt>
+                    <dd>
+                      <p>Metric name.</p>
+                    </dd>
+                    <dt data-property-name="description" class="has-description">
+                      <span class="json-property-name">description:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                      <span class="json-property-range" title="String length limits"> (up to 255 chars) </span>
+                    </dt>
+                    <dd>
+                      <p>Short description of the metric.</p>
+                    </dd>
+                    <dt data-property-name="created_at" class="has-description">
+                      <span class="json-property-name">created_at:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-format">(date-time)</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>Datetime when metric was created in UTC.</p>
+                    </dd>
+                    <dt data-property-name="component" class="has-description">
+                      <span class="json-property-name">component:</span>
+                      <span class="json-property-type">
+                        <span class="json-schema-ref-object">
+                          <a class="json-schema-ref" href="#/definitions/Component">Component</a>
+                        </span>
+                      </span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>A component connected to this metric.</p>
+                    </dd>
+                    <dt class="json-inner-schema"> </dt>
+                    <dt data-property-name="url" class="has-description">
+                      <span class="json-property-name">url:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>URL to ping.</p>
+                    </dd>
+                    <dt data-property-name="frequency" class="has-description">
+                      <span class="json-property-name">frequency:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-enum" title="Possible values">
+                        <span class="json-property-enum-item">minute</span>,
+                        <span class="json-property-enum-item">2 minutes</span>,
+                        <span class="json-property-enum-item">5 minutes</span>,
+                        <span class="json-property-enum-item">10 minutes</span>,
+                        <span class="json-property-enum-item">15 minutes</span>,
+                        <span class="json-property-enum-item">30 minutes</span>,
+                        <span class="json-property-enum-item">60 minutes</span>
+                      </span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>URL is pinged with this frequency.</p>
+                    </dd>
+                    <dt data-property-name="location" class="has-description">
+                      <span class="json-property-name">location:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-enum" title="Possible values">
+                        <span class="json-property-enum-item">US west</span>,
+                        <span class="json-property-enum-item">US east</span>,
+                        <span class="json-property-enum-item">São Paulo</span>,
+                        <span class="json-property-enum-item">London</span>,
+                        <span class="json-property-enum-item">Milan</span>,
+                        <span class="json-property-enum-item">Stockholm</span>,
+                        <span class="json-property-enum-item">Singapore</span>,
+                        <span class="json-property-enum-item">Sydney</span>,
+                        <span class="json-property-enum-item">Tokyo</span>
+                      </span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>URL is pinged from this location.</p>
+                    </dd>
+                    <dt data-property-name="showcased" class="has-description">
+                      <span class="json-property-name">showcased:</span>
+                      <span class="json-property-type">boolean</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>Whether it is shown on the status page.</p>
+                    </dd>
+                  </dl>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Example</h5>
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
+  <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-string">&quot;LPGPFfUjHpnJfMXvqnctt7&quot;</span>,
+  <span class="hljs-attr">&quot;project&quot;</span>: <span class="hljs-string">&quot;ACME&quot;</span>,
+  <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;API&quot;</span>,
+  <span class="hljs-attr">&quot;description&quot;</span>: <span class="hljs-literal">null</span>,
+  <span class="hljs-attr">&quot;created_at&quot;</span>: <span class="hljs-string">&quot;2020-02-19T16:13:58Z&quot;</span>,
+  <span class="hljs-attr">&quot;component&quot;</span>: {
+    <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-string">&quot;GZ7tIAmLacSDW7sHe9Fskl&quot;</span>,
+    <span class="hljs-attr">&quot;project&quot;</span>: <span class="hljs-string">&quot;ACME&quot;</span>,
+    <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;API&quot;</span>,
+    <span class="hljs-attr">&quot;group&quot;</span>: <span class="hljs-string">&quot;System&quot;</span>,
+    <span class="hljs-attr">&quot;created_at&quot;</span>: <span class="hljs-string">&quot;2020-02-07T14:22:03Z&quot;</span>,
+    <span class="hljs-attr">&quot;status&quot;</span>: <span class="hljs-string">&quot;Maintenance mode&quot;</span>,
+    <span class="hljs-attr">&quot;status_color&quot;</span>: <span class="hljs-string">&quot;gray&quot;</span>,
+    <span class="hljs-attr">&quot;description&quot;</span>: <span class="hljs-literal">null</span>,
+    <span class="hljs-attr">&quot;showcased&quot;</span>: <span class="hljs-literal">true</span>
+  },
+  <span class="hljs-attr">&quot;url&quot;</span>: <span class="hljs-string">&quot;https://api.acme.com/health-check&quot;</span>,
+  <span class="hljs-attr">&quot;frequency&quot;</span>: <span class="hljs-string">&quot;5 minutes&quot;</span>,
+  <span class="hljs-attr">&quot;location&quot;</span>: <span class="hljs-string">&quot;US west&quot;</span>,
+  <span class="hljs-attr">&quot;showcased&quot;</span>: <span class="hljs-literal">true</span>
+}
+</code></pre> </body>
+                  </html>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+          </div>
+          <div id="definition-Custom-Metric" class="definition panel" data-traverse-target="definition-Custom-Metric">
+            <h2 class="panel-title">
+              <a name="/definitions/Custom Metric"></a>Custom Metric: object
+              <!-- <span class="json-property-type"><span class="json-property-type">object</span>
+              <span class="json-property-range" title="Value limits"></span>
+              
+              
+              </span> -->
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="json-schema-properties">
+                  <dl>
+                    <dt data-property-name="id" class="has-description">
+                      <span class="json-property-name">id:</span>
+                      <span class="json-property-type">uuid</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                      <span class="json-property-range" title="String length limits"> (up to 22 chars) </span>
+                    </dt>
+                    <dd>
+                      <p>Unique identifier.</p>
+                    </dd>
+                    <dt data-property-name="project" class="has-description">
+                      <span class="json-property-name">project:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                      <span class="json-property-range" title="String length limits"> (up to 50 chars) </span>
+                    </dt>
+                    <dd>
+                      <p>Project name.</p>
+                    </dd>
+                    <dt data-property-name="name" class="has-description">
+                      <span class="json-property-name">name:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                      <span class="json-property-range" title="String length limits"> (up to 50 chars) </span>
+                    </dt>
+                    <dd>
+                      <p>Custom metric name.</p>
+                    </dd>
+                    <dt data-property-name="description" class="has-description">
+                      <span class="json-property-name">description:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                      <span class="json-property-range" title="String length limits"> (up to 255 chars) </span>
+                    </dt>
+                    <dd>
+                      <p>Short description of the custom metric.</p>
+                    </dd>
+                    <dt data-property-name="created_at" class="has-description">
+                      <span class="json-property-name">created_at:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-format">(date-time)</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>Datetime when custom metric was created in UTC.</p>
+                    </dd>
+                    <dt data-property-name="component" class="has-description">
+                      <span class="json-property-name">component:</span>
+                      <span class="json-property-type">
+                        <span class="json-schema-ref-object">
+                          <a class="json-schema-ref" href="#/definitions/Component">Component</a>
+                        </span>
+                      </span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>A component connected to this custom metric.</p>
+                    </dd>
+                    <dt class="json-inner-schema"> </dt>
+                    <dt data-property-name="suffix" class="has-description">
+                      <span class="json-property-name">suffix:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                      <span class="json-property-range" title="String length limits"> (up to 50 chars) </span>
+                    </dt>
+                    <dd>
+                      <p>Metric unit/suffix.</p>
+                    </dd>
+                    <dt data-property-name="rollup" class="has-description">
+                      <span class="json-property-name">rollup:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-enum" title="Possible values">
+                        <span class="json-property-enum-item">Mean value</span>,
+                        <span class="json-property-enum-item">Sum of all values</span>,
+                        <span class="json-property-enum-item">Minimum value</span>,
+                        <span class="json-property-enum-item">Maximum value</span>
+                      </span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>Rollup type.</p>
+                    </dd>
+                    <dt data-property-name="showcased" class="has-description">
+                      <span class="json-property-name">showcased:</span>
+                      <span class="json-property-type">boolean</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>Whether it is shown on the status page.</p>
+                    </dd>
+                  </dl>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Example</h5>
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
+  <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-string">&quot;29epTBPdfSTBB7LAmTfADw&quot;</span>,
+  <span class="hljs-attr">&quot;project&quot;</span>: <span class="hljs-string">&quot;ACME&quot;</span>,
+  <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;Errors&quot;</span>,
+  <span class="hljs-attr">&quot;description&quot;</span>: <span class="hljs-literal">null</span>,
+  <span class="hljs-attr">&quot;created_at&quot;</span>: <span class="hljs-string">&quot;2020-02-03T08:16:39Z&quot;</span>,
+  <span class="hljs-attr">&quot;component&quot;</span>: {
+    <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-string">&quot;GZ7tIAmLacSDW7sHe9Fskl&quot;</span>,
+    <span class="hljs-attr">&quot;project&quot;</span>: <span class="hljs-string">&quot;ACME&quot;</span>,
+    <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;API&quot;</span>,
+    <span class="hljs-attr">&quot;group&quot;</span>: <span class="hljs-string">&quot;System&quot;</span>,
+    <span class="hljs-attr">&quot;created_at&quot;</span>: <span class="hljs-string">&quot;2020-02-07T14:22:03Z&quot;</span>,
+    <span class="hljs-attr">&quot;status&quot;</span>: <span class="hljs-string">&quot;Maintenance mode&quot;</span>,
+    <span class="hljs-attr">&quot;status_color&quot;</span>: <span class="hljs-string">&quot;gray&quot;</span>,
+    <span class="hljs-attr">&quot;description&quot;</span>: <span class="hljs-literal">null</span>,
+    <span class="hljs-attr">&quot;showcased&quot;</span>: <span class="hljs-literal">true</span>
+  },
+  <span class="hljs-attr">&quot;suffix&quot;</span>: <span class="hljs-string">&quot;per minutes&quot;</span>,
+  <span class="hljs-attr">&quot;rollup&quot;</span>: <span class="hljs-string">&quot;Max&quot;</span>,
+  <span class="hljs-attr">&quot;showcased&quot;</span>: <span class="hljs-literal">true</span>
+}
+</code></pre> </body>
+                  </html>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+          </div>
+          <div id="definition-Custom-Metric-Data" class="definition panel" data-traverse-target="definition-Custom-Metric-Data">
+            <h2 class="panel-title">
+              <a name="/definitions/Custom Metric Data"></a>Custom Metric Data: object
+              <!-- <span class="json-property-type"><span class="json-property-type">object</span>
+              <span class="json-property-range" title="Value limits"></span>
+              
+              
+              </span> -->
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="json-schema-properties">
+                  <dl>
+                    <dt data-property-name="data" class="has-description">
+                      <span class="json-property-name">data:</span>
+                      <span class="json-property-type">
+                        <span class="json-schema-ref-object">
+                          <a class="json-schema-ref" href="#/definitions/Metric Data Points">Metric Data Points</a>
+                        </span>
+                      </span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>Container for custom metric data points.</p>
+                    </dd>
+                    <dt class="json-inner-schema"> </dt>
+                  </dl>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Example</h5>
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
+  <span class="hljs-attr">&quot;data&quot;</span>: {
+    <span class="hljs-attr">&quot;29epTBPdfSTBB7LAmTfADw&quot;</span>: [
+      {
+        <span class="hljs-attr">&quot;timestamp&quot;</span>: <span class="hljs-number">1617786615</span>,
+        <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-number">11.6</span>
+      }
+    ]
+  }
+}
+</code></pre> </body>
+                  </html>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+          </div>
+          <div id="definition-Metric-Data-Points" class="definition panel" data-traverse-target="definition-Metric-Data-Points">
+            <h2 class="panel-title">
+              <a name="/definitions/Metric Data Points"></a>Metric Data Points: object
+              <!-- <span class="json-property-type"><span class="json-property-type">object</span>
+              <span class="json-property-range" title="Value limits"></span>
+              
+              
+              </span> -->
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="json-schema-properties">
+                  <dl>
+                    <dt data-property-name="-metric-id-" class="has-description">
+                      <span class="json-property-name">&lt;metric id&gt;:</span>
+                      <span class="json-property-type">
+                        <span class="json-schema-ref-array">
+                          <a class="json-schema-ref" href="#/definitions/Data Point">Data Point</a>
+                        </span>
+                      </span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>A list of data points.</p>
+                    </dd>
+                    <dt class="json-inner-schema">
+                      <section class="json-schema-array-items">
+                        <span class="json-property-type">
+                          <span class="">
+                            <a class="json-schema-ref" href="#/definitions/Data Point">Data Point</a>
+                          </span>
+                        </span>
+                        <span class="json-property-range" title="Value limits"></span>
+                        <div class="json-inner-schema"> </div>
+                      </section>
+                    </dt>
+                  </dl>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Example</h5>
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
+  <span class="hljs-attr">&quot;29epTBPdfSTBB7LAmTfADw&quot;</span>: [
+    {
+      <span class="hljs-attr">&quot;timestamp&quot;</span>: <span class="hljs-number">1615387895</span>,
+      <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-number">11.6</span>
+    },
+    {
+      <span class="hljs-attr">&quot;timestamp&quot;</span>: <span class="hljs-number">1615819080</span>,
+      <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-number">12.1</span>
+    }
+  ]
+}
+</code></pre> </body>
+                  </html>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+          </div>
+          <div id="definition-Data-Point" class="definition panel" data-traverse-target="definition-Data-Point">
+            <h2 class="panel-title">
+              <a name="/definitions/Data Point"></a>Data Point: object
+              <!-- <span class="json-property-type"><span class="json-property-type">object</span>
+              <span class="json-property-range" title="Value limits"></span>
+              
+              
+              </span> -->
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="json-schema-properties">
+                  <dl>
+                    <dt data-property-name="timestamp" class="has-description">
+                      <span class="json-property-name">timestamp:</span>
+                      <span class="json-property-type">integer</span>
+                      <span class="json-property-format">(int32)</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>Timestamp in UTC when data point occurred.</p>
+                    </dd>
+                    <dt data-property-name="value" class="has-description">
+                      <span class="json-property-name">value:</span>
+                      <span class="json-property-type">integer, float</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>Data point value.</p>
+                    </dd>
+                  </dl>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Example</h5>
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
+  <span class="hljs-attr">&quot;timestamp&quot;</span>: <span class="hljs-number">1615387895</span>,
+  <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-number">11.6</span>
+}
+</code></pre> </body>
+                  </html>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+          </div>
+          <div id="definition-Auth-Error" class="definition panel" data-traverse-target="definition-Auth-Error">
+            <h2 class="panel-title">
+              <a name="/definitions/Auth Error"></a>Auth Error: object
+              <!-- <span class="json-property-type"><span class="json-property-type">object</span>
+              <span class="json-property-range" title="Value limits"></span>
+              
+              
+              </span> -->
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="json-schema-properties">
+                  <dl>
+                    <dt data-property-name="detail">
+                      <span class="json-property-name">detail:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                  </dl>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Example</h5>
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
+  <span class="hljs-attr">&quot;detail&quot;</span>: <span class="hljs-string">&quot;Authentication credentials were not provided.&quot;</span>
+}
+</code></pre> </body>
+                  </html>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+          </div>
+          <div id="definition-Parse-Error" class="definition panel" data-traverse-target="definition-Parse-Error">
+            <h2 class="panel-title">
+              <a name="/definitions/Parse Error"></a>Parse Error: object
+              <!-- <span class="json-property-type"><span class="json-property-type">object</span>
+              <span class="json-property-range" title="Value limits"></span>
+              
+              
+              </span> -->
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="json-schema-properties">
+                  <dl>
+                    <dt data-property-name="detail">
+                      <span class="json-property-name">detail:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                  </dl>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Example</h5>
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
+  <span class="hljs-attr">&quot;detail&quot;</span>: <span class="hljs-string">&quot;Malformed request.&quot;</span>
+}
+</code></pre> </body>
+                  </html>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+          </div>
+          <div id="definition-Not-found" class="definition panel" data-traverse-target="definition-Not-found">
+            <h2 class="panel-title">
+              <a name="/definitions/Not found"></a>Not found: object
+              <!-- <span class="json-property-type"><span class="json-property-type">object</span>
+              <span class="json-property-range" title="Value limits"></span>
+              
+              
+              </span> -->
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="json-schema-properties">
+                  <dl>
+                    <dt data-property-name="detail">
+                      <span class="json-property-name">detail:</span>
+                      <span class="json-property-type">string</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                  </dl>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Example</h5>
+                  <!-- <div class="hljs"> -->
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
+  <span class="hljs-attr">&quot;detail&quot;</span>: <span class="hljs-string">&quot;Not found.&quot;</span>
+}
+</code></pre> </body>
+                  </html>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+          </div>
+          <div class="doc-row no-margin">
+            <div class="doc-copy doc-separator">
+              <a class="powered-by" href="https://sourcey.com/spectacle">Documentation by
+                <span>Spectacle</span>
+              </a>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </body>
+</html>
